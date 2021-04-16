@@ -10,19 +10,11 @@ table {
     width: 100%;
     height: 500px;
 }
-#header {
-    height: 50px;
-}
-#header img {
-    width: 20px;
-    height: 20px;
-    cursor: pointer;
-}
-#deco {
+#header{
     height: 50px;
 }
 
-#deco span{
+#header span {
     width: 30px;
     height: 30px;
     border : 0.4px solid white;
@@ -32,13 +24,13 @@ table {
     padding-top: 9px;
     text-align: center;
 }
-
-#deco img {
+#header img {
     width: 20px;
     height: 20px;
+    cursor: pointer;
 }
 
-#deco span:hover {
+#header span:hover {
     border : 0.4px solid #aaa;
 }
 
@@ -75,6 +67,7 @@ table {
     font-weight: bold;
     color : white;
 }
+
 [disabled] .buttons>button{
     background-color: white;
 }

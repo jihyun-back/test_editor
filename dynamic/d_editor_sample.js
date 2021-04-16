@@ -98,7 +98,6 @@ Editor.prototype.headerEvent = function (decolength) {
         if (document.getSelection) {
             let selObj = window.getSelection();
             let range = document.createRange();
-            console.log(this.list.decoList);
             document.addEventListener('selectionchange', function (e) {
                 for (let i = 0; i < decolength; i++) {
                     if (document.queryCommandState(decoList[i])) {
@@ -233,7 +232,6 @@ Editor.prototype.footerEvent = function () {
 
             } else if (btnNum == 2) {
 
-                console.log(header);
                 header.style.pointerEvents = "none";
 
                 div.editDiv.style.display = "none";
