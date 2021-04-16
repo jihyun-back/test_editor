@@ -1,2 +1,9 @@
-=============
-Test Editor for Study
+
+# Test Editor for Study
+
+
+## 2021/04/15
+- 마크업언어로 에디터 샘플 구현
+
+## 2021/04/16  
+- js로 동적 에디터 샘플 구현
