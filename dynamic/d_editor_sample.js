@@ -87,6 +87,7 @@ Editor.prototype.headerEvent = function (decolength) {
                 document.execCommand(a[i].firstChild.id, true)
                 if (document.queryCommandState(decoList[i])) {
                     a[i].parentElement.style.backgroundColor = "#ddd";
+                    console.log(a[i].parentElement);
                 } else {
                     a[i].parentElement.style.backgroundColor = "white";
                 }
