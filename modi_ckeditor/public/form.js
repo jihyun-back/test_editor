@@ -4,14 +4,16 @@
     var list = {
         mainDivList: ['toolbar', 'content', 'footer'],
         contentList: ['edit', 'html', 'preview'],
-        toolbarList: ['heading', 'bold', 'italic', 'underline', 'strikeThrough', 'newPage', 'imageUpload', 'indent', 'outdent'],
+        toolbarList: ['heading', 'font', 'bold', 'italic', 'underline', 'strikeThrough', 'newPage', 'imageUpload', 'indent', 'outdent', 'bulletedList', 'numberedList'],
         headerDivText: ['Classic', 'Balloon', 'Balloon Block', 'Inline', 'Document', 'Pagination'],
-        headerSelect: ['Heading1', 'Heading2', 'Heading3', 'Paragraph']
+        headerSelect: ['Heading1', 'Heading2', 'Heading3', 'Paragraph'],
+        fontSelect: ['맑은 고딕', '돋움', '굴림', '궁서']
     };
 
 
     var toolbarImgUrl = {
         headingImgUrl: "https://img.icons8.com/windows/24/000000/expand-arrow--v1.png",
+        fontImgUrl: "https://img.icons8.com/windows/24/000000/expand-arrow--v1.png",
         boldImgUrl: "https://img.icons8.com/metro/26/000000/bold.png",
         italicImgUrl: "https://img.icons8.com/metro/26/000000/italic.png",
         underlineImgUrl: "https://img.icons8.com/android/24/000000/underline.png",
@@ -19,7 +21,9 @@
         newPageImgUrl: "https://img.icons8.com/office/16/000000/new-by-copy--v1.png",
         imageUploadImgUrl: "https://img.icons8.com/ios/50/000000/image.png",
         outdentImgUrl: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjUxMS42MjZweCIgaGVpZ2h0PSI1MTEuNjI2cHgiIHZpZXdCb3g9IjAgMCA1MTEuNjI2IDUxMS42MjYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMS42MjYgNTExLjYyNjsiDQoJIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGQ9Ik01MDIuNDksMzgzLjcyMkg5LjEzNWMtMi40NzQsMC00LjYxNSwwLjg5Ni02LjQyMywyLjcwN0MwLjkwMywzODguMjM4LDAsMzkwLjM3OCwwLDM5Mi44NTR2NTQuODINCgkJCWMwLDIuNDcxLDAuOTAzLDQuNjA5LDIuNzEyLDYuNDJjMS44MDksMS44MTMsMy45NDksMi43MTQsNi40MjMsMi43MTRINTAyLjQ5YzIuNDc4LDAsNC42MTYtMC45MDMsNi40MjctMi43MTQNCgkJCWMxLjgxLTEuODExLDIuNzEtMy45NDksMi43MS02LjQydi01NC44MmMwLTIuNDc3LTAuOTAzLTQuNjE2LTIuNzEtNi40MjZDNTA3LjEwNiwzODQuNjI1LDUwNC45NjcsMzgzLjcyMiw1MDIuNDksMzgzLjcyMnoiLz4NCgkJPHBhdGggZD0iTTEwMC41LDM0Ny4xNjljMi40NzMsMCw0LjYxNS0wLjg5Niw2LjQyMy0yLjcwN2MxLjgwNy0xLjgwNywyLjcxMi0zLjk0OSwyLjcxMi02LjQyN1YxNzMuNTg5DQoJCQljMC0yLjQ3NS0wLjkwNS00LjYxNy0yLjcxMi02LjQyN2MtMS44MDktMS44MDYtMy45NTEtMi43MDktNi40MjMtMi43MDljLTIuNjY3LDAtNC44NTQsMC44NTQtNi41NjcsMi41NjhsLTgyLjIyNiw4Mi4yMjQNCgkJCWMtMS43MDksMS43MTUtMi41NjgsMy45MDEtMi41NjgsNi41NjdjMCwyLjY2NSwwLjg1NSw0Ljg1NCwyLjU2OCw2LjU2NWw4Mi4yMjYsODIuMjI5DQoJCQlDOTUuNjQ2LDM0Ni4zMTcsOTcuODMzLDM0Ny4xNjksMTAwLjUsMzQ3LjE2OXoiLz4NCgkJPHBhdGggZD0iTTUwMi40OSwxNjQuNDUzSDE5MS44NmMtMi40NzQsMC00LjYxNSwwLjktNi40MjMsMi43MDljLTEuODA5LDEuODEtMi43MTIsMy45NTItMi43MTIsNi40Mjd2NTQuODE3DQoJCQljMCwyLjQ3MywwLjkwMyw0LjYxNSwyLjcxMiw2LjQyNGMxLjgwOSwxLjgwMywzLjk0OSwyLjcxMiw2LjQyMywyLjcxMmgzMTAuNjNjMi40NzgsMCw0LjYxNi0wLjkwNSw2LjQyNy0yLjcxMg0KCQkJYzEuODEtMS44MDksMi43MS0zLjk1MSwyLjcxLTYuNDI0di01NC44MTdjMC0yLjQ3NS0wLjkwMy00LjYxNy0yLjcxLTYuNDI3QzUwNy4xMDYsMTY1LjM1Niw1MDQuOTY3LDE2NC40NTMsNTAyLjQ5LDE2NC40NTN6Ii8+DQoJCTxwYXRoIGQ9Ik01MDIuNDksMjc0LjA4MkgxOTEuODZjLTIuNDc0LDAtNC42MTUsMC45MS02LjQyMywyLjcxNHMtMi43MTIsMy45NTMtMi43MTIsNi40MjR2NTQuODE1YzAsMi40NzgsMC45MDMsNC42MiwyLjcxMiw2LjQyNw0KCQkJYzEuODA5LDEuODA4LDMuOTQ5LDIuNzA3LDYuNDIzLDIuNzA3aDMxMC42M2MyLjQ3OCwwLDQuNjE2LTAuODk2LDYuNDI3LTIuNzA3YzEuODEtMS44MDcsMi43MS0zLjk0OSwyLjcxLTYuNDI3VjI4My4yMg0KCQkJYzAtMi40NzEtMC45MDMtNC42MTMtMi43MS02LjQyNEM1MDcuMTA2LDI3NC45OTIsNTA0Ljk2NywyNzQuMDgyLDUwMi40OSwyNzQuMDgyeiIvPg0KCQk8cGF0aCBkPSJNNTA4LjkxNyw1Ny41MjljLTEuODExLTEuODA1LTMuOTQ5LTIuNzEyLTYuNDI3LTIuNzEySDkuMTM1Yy0yLjQ3NCwwLTQuNjE1LDAuOTAzLTYuNDIzLDIuNzEyUzAsNjEuNDc5LDAsNjMuOTUzdjU0LjgxNw0KCQkJYzAsMi40NzUsMC45MDMsNC42MTUsMi43MTIsNi40MjRzMy45NDksMi43MTIsNi40MjMsMi43MTJINTAyLjQ5YzIuNDc4LDAsNC42MTYtMC45LDYuNDI3LTIuNzEyDQoJCQljMS44MS0xLjgwOSwyLjcxLTMuOTQ5LDIuNzEtNi40MjRWNjMuOTUzQzUxMS42MjYsNjEuNDc5LDUxMC43MjMsNTkuMzM4LDUwOC45MTcsNTcuNTI5eiIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K",
-        indentImgUrl: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjUxMS42MjZweCIgaGVpZ2h0PSI1MTEuNjI2cHgiIHZpZXdCb3g9IjAgMCA1MTEuNjI2IDUxMS42MjYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMS42MjYgNTExLjYyNjsiDQoJIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGQ9Ik05LjEzOSwzNDcuMTczYzIuNjY3LDAsNC44NTQtMC44NTUsNi41NjctMi41NjZsODIuMjI0LTgyLjIyOWMxLjcxMS0xLjcxMSwyLjU3LTMuOSwyLjU3LTYuNTY1DQoJCQljMC0yLjY2Ni0wLjg1OS00Ljg1My0yLjU3LTYuNTY3bC04Mi4yMjQtODIuMjI0Yy0xLjcxMy0xLjcxNC0zLjktMi41NjgtNi41NjctMi41NjhjLTIuNDc0LDAtNC42MTUsMC45LTYuNDIzLDIuNzA5DQoJCQljLTEuODA5LDEuODEtMi43MTIsMy45NTItMi43MTIsNi40Mjd2MTY0LjQ0NmMwLDIuNDc4LDAuOTAzLDQuNjIsMi43MTIsNi40MjdDNC41MjQsMzQ2LjI2Niw2LjY2NSwzNDcuMTczLDkuMTM5LDM0Ny4xNzN6Ii8+DQoJCTxwYXRoIGQ9Ik01MDIuNDksMzgzLjcyMkg5LjEzNWMtMi40NzQsMC00LjYxNSwwLjg5Ni02LjQyMywyLjcwN0MwLjkwMywzODguMjM4LDAsMzkwLjM3OCwwLDM5Mi44NTR2NTQuODINCgkJCWMwLDIuNDcxLDAuOTAzLDQuNjA5LDIuNzEyLDYuNDJjMS44MDksMS44MTMsMy45NDksMi43MTQsNi40MjMsMi43MTRINTAyLjQ5YzIuNDc4LDAsNC42MTYtMC45MDMsNi40MjctMi43MTQNCgkJCWMxLjgxLTEuODExLDIuNzEtMy45NDksMi43MS02LjQydi01NC44MmMwLTIuNDc3LTAuOTAzLTQuNjE2LTIuNzEtNi40MjZDNTA3LjEwNiwzODQuNjI1LDUwNC45NjcsMzgzLjcyMiw1MDIuNDksMzgzLjcyMnoiLz4NCgkJPHBhdGggZD0iTTUwMi40OSwyNzQuMDgySDE5MS44NmMtMi40NzQsMC00LjYxNSwwLjkxLTYuNDIzLDIuNzE0cy0yLjcxMiwzLjk1My0yLjcxMiw2LjQyNHY1NC44MTVjMCwyLjQ3OCwwLjkwMyw0LjYyLDIuNzEyLDYuNDI3DQoJCQljMS44MDksMS44MDgsMy45NDksMi43MDcsNi40MjMsMi43MDdoMzEwLjYzYzIuNDc4LDAsNC42MTYtMC44OTYsNi40MjctMi43MDdjMS44MS0xLjgwNywyLjcxLTMuOTQ5LDIuNzEtNi40MjdWMjgzLjIyDQoJCQljMC0yLjQ3MS0wLjkwMy00LjYxMy0yLjcxLTYuNDI0QzUwNy4xMDYsMjc0Ljk5Miw1MDQuOTY3LDI3NC4wODIsNTAyLjQ5LDI3NC4wODJ6Ii8+DQoJCTxwYXRoIGQ9Ik01MDIuNDksMTY0LjQ1M0gxOTEuODZjLTIuNDc0LDAtNC42MTUsMC45LTYuNDIzLDIuNzA5Yy0xLjgwOSwxLjgxLTIuNzEyLDMuOTUyLTIuNzEyLDYuNDI3djU0LjgxNw0KCQkJYzAsMi40NzMsMC45MDMsNC42MTUsMi43MTIsNi40MjRjMS44MDksMS44MDMsMy45NDksMi43MTIsNi40MjMsMi43MTJoMzEwLjYzYzIuNDc4LDAsNC42MTYtMC45MDUsNi40MjctMi43MTINCgkJCWMxLjgxLTEuODA5LDIuNzEtMy45NTEsMi43MS02LjQyNHYtNTQuODE3YzAtMi40NzUtMC45MDMtNC42MTctMi43MS02LjQyN0M1MDcuMTA2LDE2NS4zNTYsNTA0Ljk2NywxNjQuNDUzLDUwMi40OSwxNjQuNDUzeiIvPg0KCQk8cGF0aCBkPSJNNTA4LjkxNyw1Ny41MjljLTEuODExLTEuODA1LTMuOTQ5LTIuNzEyLTYuNDI3LTIuNzEySDkuMTM1Yy0yLjQ3NCwwLTQuNjE1LDAuOTAzLTYuNDIzLDIuNzEyUzAsNjEuNDc5LDAsNjMuOTUzdjU0LjgxNw0KCQkJYzAsMi40NzUsMC45MDMsNC42MTUsMi43MTIsNi40MjRzMy45NDksMi43MTIsNi40MjMsMi43MTJINTAyLjQ5YzIuNDc4LDAsNC42MTYtMC45LDYuNDI3LTIuNzEyDQoJCQljMS44MS0xLjgwOSwyLjcxLTMuOTQ5LDIuNzEtNi40MjRWNjMuOTUzQzUxMS42MjYsNjEuNDc5LDUxMC43MjMsNTkuMzM4LDUwOC45MTcsNTcuNTI5eiIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K"
+        indentImgUrl: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjUxMS42MjZweCIgaGVpZ2h0PSI1MTEuNjI2cHgiIHZpZXdCb3g9IjAgMCA1MTEuNjI2IDUxMS42MjYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMS42MjYgNTExLjYyNjsiDQoJIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGQ9Ik05LjEzOSwzNDcuMTczYzIuNjY3LDAsNC44NTQtMC44NTUsNi41NjctMi41NjZsODIuMjI0LTgyLjIyOWMxLjcxMS0xLjcxMSwyLjU3LTMuOSwyLjU3LTYuNTY1DQoJCQljMC0yLjY2Ni0wLjg1OS00Ljg1My0yLjU3LTYuNTY3bC04Mi4yMjQtODIuMjI0Yy0xLjcxMy0xLjcxNC0zLjktMi41NjgtNi41NjctMi41NjhjLTIuNDc0LDAtNC42MTUsMC45LTYuNDIzLDIuNzA5DQoJCQljLTEuODA5LDEuODEtMi43MTIsMy45NTItMi43MTIsNi40Mjd2MTY0LjQ0NmMwLDIuNDc4LDAuOTAzLDQuNjIsMi43MTIsNi40MjdDNC41MjQsMzQ2LjI2Niw2LjY2NSwzNDcuMTczLDkuMTM5LDM0Ny4xNzN6Ii8+DQoJCTxwYXRoIGQ9Ik01MDIuNDksMzgzLjcyMkg5LjEzNWMtMi40NzQsMC00LjYxNSwwLjg5Ni02LjQyMywyLjcwN0MwLjkwMywzODguMjM4LDAsMzkwLjM3OCwwLDM5Mi44NTR2NTQuODINCgkJCWMwLDIuNDcxLDAuOTAzLDQuNjA5LDIuNzEyLDYuNDJjMS44MDksMS44MTMsMy45NDksMi43MTQsNi40MjMsMi43MTRINTAyLjQ5YzIuNDc4LDAsNC42MTYtMC45MDMsNi40MjctMi43MTQNCgkJCWMxLjgxLTEuODExLDIuNzEtMy45NDksMi43MS02LjQydi01NC44MmMwLTIuNDc3LTAuOTAzLTQuNjE2LTIuNzEtNi40MjZDNTA3LjEwNiwzODQuNjI1LDUwNC45NjcsMzgzLjcyMiw1MDIuNDksMzgzLjcyMnoiLz4NCgkJPHBhdGggZD0iTTUwMi40OSwyNzQuMDgySDE5MS44NmMtMi40NzQsMC00LjYxNSwwLjkxLTYuNDIzLDIuNzE0cy0yLjcxMiwzLjk1My0yLjcxMiw2LjQyNHY1NC44MTVjMCwyLjQ3OCwwLjkwMyw0LjYyLDIuNzEyLDYuNDI3DQoJCQljMS44MDksMS44MDgsMy45NDksMi43MDcsNi40MjMsMi43MDdoMzEwLjYzYzIuNDc4LDAsNC42MTYtMC44OTYsNi40MjctMi43MDdjMS44MS0xLjgwNywyLjcxLTMuOTQ5LDIuNzEtNi40MjdWMjgzLjIyDQoJCQljMC0yLjQ3MS0wLjkwMy00LjYxMy0yLjcxLTYuNDI0QzUwNy4xMDYsMjc0Ljk5Miw1MDQuOTY3LDI3NC4wODIsNTAyLjQ5LDI3NC4wODJ6Ii8+DQoJCTxwYXRoIGQ9Ik01MDIuNDksMTY0LjQ1M0gxOTEuODZjLTIuNDc0LDAtNC42MTUsMC45LTYuNDIzLDIuNzA5Yy0xLjgwOSwxLjgxLTIuNzEyLDMuOTUyLTIuNzEyLDYuNDI3djU0LjgxNw0KCQkJYzAsMi40NzMsMC45MDMsNC42MTUsMi43MTIsNi40MjRjMS44MDksMS44MDMsMy45NDksMi43MTIsNi40MjMsMi43MTJoMzEwLjYzYzIuNDc4LDAsNC42MTYtMC45MDUsNi40MjctMi43MTINCgkJCWMxLjgxLTEuODA5LDIuNzEtMy45NTEsMi43MS02LjQyNHYtNTQuODE3YzAtMi40NzUtMC45MDMtNC42MTctMi43MS02LjQyN0M1MDcuMTA2LDE2NS4zNTYsNTA0Ljk2NywxNjQuNDUzLDUwMi40OSwxNjQuNDUzeiIvPg0KCQk8cGF0aCBkPSJNNTA4LjkxNyw1Ny41MjljLTEuODExLTEuODA1LTMuOTQ5LTIuNzEyLTYuNDI3LTIuNzEySDkuMTM1Yy0yLjQ3NCwwLTQuNjE1LDAuOTAzLTYuNDIzLDIuNzEyUzAsNjEuNDc5LDAsNjMuOTUzdjU0LjgxNw0KCQkJYzAsMi40NzUsMC45MDMsNC42MTUsMi43MTIsNi40MjRzMy45NDksMi43MTIsNi40MjMsMi43MTJINTAyLjQ5YzIuNDc4LDAsNC42MTYtMC45LDYuNDI3LTIuNzEyDQoJCQljMS44MS0xLjgwOSwyLjcxLTMuOTQ5LDIuNzEtNi40MjRWNjMuOTUzQzUxMS42MjYsNjEuNDc5LDUxMC43MjMsNTkuMzM4LDUwOC45MTcsNTcuNTI5eiIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K",
+        bulletedListImgUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAABz0lEQVRoge3ZPWsVQRTG8V/EwkAUbLTxBbVRrDQYi1iIhW8o+hX8CKKt4Aewklja+AUUNVqKpBEhqSwsFBPE2GmpgdzEYjdcWXfHvcssV/D84cBw5pnhmbu7dw9nCYIgCILuTLTQnMO1cvwEr/qz0x+3sYHNMjZwa6yOOrAXa4aH2Io17KnRn8DHGn2OWMczTHY5yIXExudr9A97OsTvcbHJ7LbEQT6POLeQ0OfgO941Tf7tYZ/H5UruOa426E/iSGtr7VnHG3ztusFOzOFLGfcxlcVaEATBf02bonFS8X6AJfzoz05/nMaKYYmwjJmxOmogdUUm8R4HKvkVHMXPSn4Kd3Aom7shA7zEoy6LZzUXb7M1+nsJfa5ovBtSReOobGbca2S2J+aWFLfRwUp+GYs1+ruK4q6PonGAF3jbdYMZhfGtS/sJp7JYy0ybv98dmC7Hi/58yIMgCILs7MIDrJYxp2hI/HOk3iMTinbQpUp+Hlca1kzjcAZfVQaKdtBql8XHNRdvx2r0NxL6HPEN+5rMporGxkXYX5M7k9DnYLfixx2ZLk3sDzX6XE3spzo2sSk+IVQ/K9zsulmftCkaz+J6OX6M1/3ZCYIgCILx8Atsf9Z3tXSEkAAAAABJRU5ErkJggg==",
+        numberedListImgUrl: "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAABmJLR0QA/wD/AP+gvaeTAAACcUlEQVRoge3Zz4tNYRzH8RfGMEp+rCTZyIqU0piFsFCIUpYWlAX+C2VtQdlQfuTHRkkhhFjYjA2RkJTUZBJmzMLv4Vp8zzTHOM7cuXPOHJPzrqd7Os9zv8/nuc95vt/v+V5qampqMB0H8B59OFmtnNZYivtopNr5ShXlMDWnbyNW4hLeToyc1slbyAfswjZ8nBg5rdOW03d2wlQUQN6ONEsHrmDQ7+epyDaIy8lcpS1kHbZgWgG2/sY0bE3myqSIhTxGfwF2RqM/mSuTvDPSLD1Yhq6C7GUxiG70/m1AURP34mJBtlpiSpPj5ojH8JtJ4IpramrGzhrcwjuRxt/G+koVtUAnvooUoV94q0Zyb1WFusbMSSH8DtoxT8SLBg5WqCuTvIB4BOfwUsSPn8knsStpdmGT8vKtH7iG0+M1NBWnxG4MYHGqb7Xyst6RrXO8iziWGPoifvk0nf/CQkZLUaaLndghDvt23MgYtxOblftoXcWZVr48U7yvN0QVpas4XRPLIcNb+lXEkaF2vUJdmeR5rbmp6/akDTG7HDk1Nf8co7nfWdiNFeLQPxDR9VPJugplPl74Myg9S/omDfuF8KciDdkgXG8D+yrUlUme+72LvXiIe8m9VyIL/jFi7EIRMMuM7N14PR4jS3BUpPMNkSqkS5eLDO9Uma0vmSuTZupaC7AnuR7AcxEcPyf3lotdKpt5ohDY06qBtpSR5+LXOZHq7xA5WdlF7Etyith5HMZNvx/sC4nhR60YLJO8R6tPeKq1ogo+U/zpQxQhJg1tOC48xtAWfxfv8jMq1JVJM7XfheJ8DOIJ3pSqqKampua/4Bdgb/ibrBVU+gAAAABJRU5ErkJggg=="
     };
 
     function Editor(node) {
@@ -80,7 +84,7 @@
 
             tmp.appendChild(div);
 
-            if (el == 'heading' || el == 'strikeThrough' || el == 'imageUpload') {
+            if (el == 'heading' || el == 'font' || el == 'strikeThrough' || el == 'imageUpload' || el == 'outdent') {
                 var span = document.createElement('span');
                 span.setAttribute('class', 'seperate');
                 div.after(span);
@@ -109,6 +113,25 @@
                 div.appendChild(headingSelectDiv)
 
             }
+            if (el == 'font') {
+                var fontSpan = document.createElement('span');
+                fontSpan.textContent = '기본글꼴';
+                fontSpan.setAttribute('class', 'fontSpan');
+
+                var fontSelectDiv = document.createElement('div');
+                fontSelectDiv.setAttribute('class', 'fontSelectDiv');
+                fontSelectDiv.style.display = 'none';
+
+                list.fontSelect.forEach(function (el) {
+                    var fontLi = document.createElement('li');
+                    fontLi.classList.add('fontLi');
+                    fontLi.textContent = el;
+                    fontSelectDiv.appendChild(fontLi);
+                })
+
+                div.appendChild(fontSpan);
+                div.appendChild(fontSelectDiv)
+            }
             if (el == 'imageUpload') {
                 var form = document.createElement('form');
 
@@ -131,6 +154,9 @@
                 div.classList.add('deco');
             }
 
+            if (el.includes('List')) {
+                div.classList.add('list');
+            }
 
         })
 
@@ -146,99 +172,275 @@
         }
     }
 
-
-    Editor.prototype.addHeadingDeco = function(headingName){
-        var caret = this.element.caret;
-
-        var start = caret.startContainer
-        var end = caret.endContainer
-
-        var arr = [];
-        // parentNode구하기
-        function getStartEndContainer(caretParentNode) {
-            while (caretParentNode !== null) {
-                if (caretParentNode.tagName === 'P' || caretParentNode.tagName === 'H1' || caretParentNode.tagName === 'H2' || caretParentNode.tagName === 'H3') {
-                    return caretParentNode;
-                }
-                caretParentNode = caretParentNode.parentNode || caretParentNode.parentElement;
+    function getStartEndContainer(caretParentNode) {
+        while (caretParentNode !== null) {
+            if (caretParentNode.tagName === 'P' || caretParentNode.tagName === 'H1' || caretParentNode.tagName === 'H2' || caretParentNode.tagName === 'H3' || caretParentNode.tagName === 'LI') {
+                return caretParentNode;
             }
+            caretParentNode = caretParentNode.parentNode || caretParentNode.parentElement;
         }
-        var startParent = getStartEndContainer(start);
-        var endParent = getStartEndContainer(end);
+    }
 
-        function test(start, end) {
-            var testArr = [];
+    function test(start, end) {
+        var testArr = [];
 
-            while (start !== end) {
-                if (start.tagName === 'P' || start.tagName === 'H1' || start.tagName === 'H2' || start.tagName === 'H3') {
-                    testArr.push(start);
-                } else if (start.tagName === 'DIV') {
-                    if (start.childNodes.length > 0) {
-                        testArr.push(test(start.firstElementChild, end).flat());
+        while (start !== end) {
+            if (start.tagName === 'P' || start.tagName === 'H1' || start.tagName === 'H2' || start.tagName === 'H3' || start.tagName === 'LI') {
+                testArr.push(start);
+            } else if (start.tagName === 'DIV') {
+                if (start.childNodes.length > 0) {
+                    testArr.push(test(start.firstElementChild, end).flat());
+                    break;
+                }
+            }
+
+            if (start.nextElementSibling !== null) {
+                start = start.nextElementSibling;
+            } else {
+                while (start.parentElement !== null) {
+                    start = start.parentElement;
+
+                    if (start.nextElementSibling !== null) {
+                        start = start.nextElementSibling;
                         break;
                     }
                 }
-
-                if (start.nextElementSibling !== null) {
-                    start = start.nextElementSibling;
-                } else {
-                    while (start.parentElement !== null) {
-                        start = start.parentElement;
-
-                        if (start.nextElementSibling !== null) {
-                            start = start.nextElementSibling;
-                            break;
-                        }
-                    }
-                }
             }
-            if (start == end) {
-                testArr.push(start);
-            }
-            return testArr.flat();
         }
+        if (start == end) {
+            testArr.push(start);
+        }
+        return testArr.flat();
+    }
+    Editor.prototype.addHeadingDeco = function (headingName) {
+        var caret = this.element.caret;
+        var sel = document.getSelection();
+        var rng = document.createRange();
+
+        var start = caret.startContainer;
+        var end = caret.endContainer;
+
+        var arr = [];
+        // parentNode구하기
+
+        var startParent = getStartEndContainer(start);
+        var endParent = getStartEndContainer(end);
+
+
 
         arr.push(test(startParent, endParent).flat());
 
-        if (headingName === 'h1' || headingName === 'h2' || headingName === 'h3' ){
-            arr.flat().forEach(function (el) {
-                var node = document.createElement(headingName);
-                node.innerHTML = el.innerHTML;
-                el.outerHTML = node.outerHTML;
-            })
+        var startIndex = 0;
+        var endIndex = 0;
+        if (start.parentElement.tagName == 'P' || start.parentElement.tagName == 'H1' || start.parentElement.tagName == 'H2' || start.parentElement.tagName == 'H3') {
+            for (var i = 0; i < start.parentElement.childNodes.length; i++) {
+                if (start.parentElement.childNodes[i] === start) {
+                    startIndex = i;
+                }
+            }
         } else {
-            arr.flat().forEach(function (el) {
-                el.style.font = '14px '+headingName;
-            })
+            for (var i = 0; i < start.parentElement.parentElement.childNodes.length; i++) {
+                if (start.parentElement.parentElement.childNodes[i] === start.parentElement) {
+                    startIndex = i;
+                }
+            }
         }
-        
+        if (end.parentElement.tagName == 'P' || end.parentElement.tagName == 'H1' || end.parentElement.tagName == 'H2' || end.parentElement.tagName == 'H3') {
+            for (var i = 0; i < end.parentElement.childNodes.length; i++) {
+                if (end.parentElement.childNodes[i] === end) {
+                    endIndex = i;
+                }
+            }
+        } else {
+            for (var i = 0; i < end.parentElement.parentElement.childNodes.length; i++) {
+                if (end.parentElement.parentElement.childNodes[i] === end.parentElement) {
+                    endIndex = i;
+                }
+            }
+        }
+
+        var startOffset = this.element.caret.startOffset;
+        var endOffset = this.element.caret.endOffset;
+
+        if (arr.flat() !== null) {
+            var stAnch = '';
+            var enAnch = '';
+
+            if (headingName === 'h1' || headingName === 'h2' || headingName === 'h3') {
+                arr.flat().forEach(function (el, index) {
+                    var node = document.createElement(headingName);
+                    node.innerHTML = el.innerHTML;
+                    el.outerHTML = node.outerHTML;
+                })
+
+            } else {
+                arr.flat().forEach(function (el, index) {
+                    var node = document.createElement('p');
+                    el.style.font = '14px Verdana';
+                    node.innerHTML = el.innerHTML;
+                    el.outerHTML = node.outerHTML;
+                })
+            }
+
+            stAnch = this.element.caret.startContainer.childNodes[this.element.caret.startOffset];
+            enAnch = this.element.caret.endContainer.childNodes[this.element.caret.endOffset];
+
+            if (stAnch.childNodes.length > 1 && startIndex !== 0) {
+                rng.setStart(stAnch.childNodes[startIndex].childNodes[0], startOffset);
+                if (enAnch.childNodes.length > 1 && endIndex !== 0) {
+                    rng.setEnd(enAnch.childNodes[endIndex].childNodes[0], endOffset)
+                } else {
+                    rng.setEnd(enAnch.childNodes[0], endOffset)
+                }
+
+            } else {
+                rng.setStart(stAnch.childNodes[0], startOffset);
+                if (enAnch.childNodes.length > 1 && endIndex !== 0) {
+                    rng.setEnd(enAnch.childNodes[endIndex].childNodes[0], endOffset)
+                } else {
+                    rng.setEnd(enAnch.childNodes[0], endOffset)
+                }
+            }
+            sel.removeAllRanges();
+            sel.addRange(rng);
+
+            // range 저장하는 방법
+            // 1. outerHTML 수정
+            // 2. appendChild를 통해 기존 태그의 자식을 삽입 후 기존 태그를 지운다
+            // 3. 기존 range에 span태그를 생성 후 내용을 지운 뒤에 새로 만든 태그를 넣어준다.
+
+        }
     }
+
+    // 폰트를 변경하는 함수를 만들기
+    Editor.prototype.addFontEvent = function (fontName) {
+        var caret = this.element.caret;
+        var range = document.createRange();
+        var startParent = getStartEndContainer(caret.startContainer);
+        var endParent = getStartEndContainer(caret.endContainer);
+
+        var startContainer = caret.startContainer;
+        var endContainer = caret.endContainer;
+        var startOffset = caret.startOffset;
+        var endOffset = caret.endOffset;
+        var arr = test(startParent, endParent).flat();
+
+        var allRange = document.createRange();
+
+        if (startParent !== endParent) {
+            for (var i = 0; i < arr.length; i++) {
+                var span = document.createElement('span');
+                span.style.fontFamily = fontName;
+                if (i == 0) {
+                    range.selectNodeContents(arr[i]);
+                    range.setStart(startContainer, startOffset);
+                    span.appendChild(range.extractContents())
+                    range.insertNode(span,range);
+
+                    var spanArr = span.getElementsByTagName('SPAN');
+                    for(var j=0; j<spanArr.length; j++){
+                        spanArr[j].style.fontFamily = '';
+                    }
+                    allRange.setStart(range.startContainer, range.startOffset);
+                } else if (i == arr.length - 1) {
+                    range.selectNodeContents(arr[i]);
+                    range.setEnd(endContainer, endOffset);
+                    span.appendChild(range.extractContents())
+                    range.insertNode(span,range);
+                    var spanArr = span.getElementsByTagName('SPAN');
+                    for (var j=0; j< spanArr.length; j++){
+                        spanArr[j].style.fontFamily = '';
+                    }
+                    console.log(span.getElementsByTagName('SPAN'));
+                    allRange.setEnd(range.endContainer, range.endOffset);
+                } else {
+                    range.selectNodeContents(arr[i]);
+                    span.appendChild(range.extractContents())
+                    range.insertNode(span,range);
+                    var spanArr = span.getElementsByTagName('SPAN');
+                    for (var j=0; j< spanArr.length; j++){
+                        spanArr[j].style.fontFamily = '';
+                    }
+                    allRange.setEnd(range.endContainer, range.endOffset);
+                }
+            }
+        } else {
+            var span = document.createElement('span');
+            span.style.fontFamily = fontName;
+            span.appendChild(caret.extractContents())
+            caret.insertNode(span,caret);
+            var spanArr = span.getElementsByTagName('SPAN');
+            for (var j=0; j< spanArr.length; j++){
+                spanArr[j].style.fontFamily = '';
+            }
+            allRange.selectNode(span)
+        }
+        document.getSelection().removeAllRanges();
+        document.getSelection().addRange(allRange);
+    }
+
     Editor.prototype.addToolbarEvent = function () {
         var me = this;
-        var sel = global.getSelection();
 
         // heading
         var heading = me.element.main.querySelector('.heading');
         heading.addEventListener('click', function (e) {
-            me.element.main.querySelector('.headingSelectDiv').zIndex = 11;
-            $('.headingSelectDiv').toggle();
-            console.log(me.element.caret);
+            var hDiv = me.element.main.querySelector('.headingSelectDiv');
+            hDiv.zIndex = 10;
+
+            if (hDiv.style.display == 'none') {
+                hDiv.style.display = 'block';
+                me.element.main.querySelector('.fontSelectDiv').style.display = 'none';
+            } else {
+                hDiv.style.display = 'none';
+            }
+
         })
-
-
         var headingli = me.element.main.querySelectorAll('.headingLi');
         headingli.forEach(function (el) {
             el.addEventListener('click', function () {
+
                 switch (el.className.split(' ')[0]) {
-                    case 'Heading1': me.addHeadingDeco('h1'); break;
-                    case 'Heading2': me.addHeadingDeco('h2'); break;
-                    case 'Heading3': me.addHeadingDeco('h3'); break;
-                    case 'Paragraph': me.addHeadingDeco('paragraph'); break;
+                    case 'Heading1': {
+                        me.addHeadingDeco('h1');
+                        break;
+                    }
+                    case 'Heading2': {
+                        me.addHeadingDeco('h2');
+                        break;
+                    }
+                    case 'Heading3': {
+                        me.addHeadingDeco('h3');
+                        break;
+                    }
+                    case 'Paragraph': {
+                        me.addHeadingDeco('paragraph');
+                        break;
+                    }
                 }
             })
         })
-        // 
-        
+
+        //font
+        var font = me.element.main.querySelector('.font');
+        font.addEventListener('click', function () {
+            var fDiv = me.element.main.querySelector('.fontSelectDiv');
+            fDiv.zIndex = 10;
+
+            if (fDiv.style.display == 'none') {
+                fDiv.style.display = 'block';
+                me.element.main.querySelector('.headingSelectDiv').style.display = 'none';
+            } else {
+                fDiv.style.display = 'none';
+            }
+
+        })
+        var fontli = me.element.main.querySelectorAll('.fontLi');
+        fontli.forEach(el => {
+            el.addEventListener('click', function () {
+                me.addFontEvent(el.innerText);
+            })
+        })
         // deco
         var deco = me.element.main.querySelectorAll('.deco');
 
@@ -246,13 +448,10 @@
 
             el.addEventListener('click', function () {
                 var decoName = el.className.split(' ')[0];
-                sel.removeAllRanges();
-                sel.addRange(me.element.caret);
                 document.execCommand(decoName)
                 setDecoButtonColor(el, decoName);
             })
         })
-
 
         document.addEventListener('selectionchange', function (e) {
 
@@ -260,6 +459,10 @@
                 deco.forEach(function (el) {
                     setDecoButtonColor(el, el.className.split(' ')[0]);
                 })
+            }
+            if (me.element.main.querySelector('.edit') == document.activeElement) {
+                me.saveRange();
+                console.log(me.element.caret);
             }
         })
         // newpage
@@ -311,16 +514,67 @@
         var outdent = me.element.main.querySelector('.outdent');
 
         indent.addEventListener('click', function () {
-            sel.removeAllRanges();
-            sel.addRange(me.element.caret);
-            document.execCommand('indent');
-        })
-        outdent.addEventListener('click', function () {
-            sel.removeAllRanges();
-            sel.addRange(me.element.caret);
-            document.execCommand('outdent');
+            var startParent = getStartEndContainer(me.element.caret.startContainer);
+            var endParent = getStartEndContainer(me.element.caret.endContainer);
+            var arr = [];
+            arr.push(test(startParent, endParent));
+
+            arr.flat().forEach(el => {
+                var mL = el.style.marginLeft;
+
+                console.log(mL);
+                var num = mL.substring(0, mL.indexOf('px'));
+                var newML = '';
+                if (num) {
+                    newML = parseInt(num) + 20;
+                } else {
+                    newML = 20;
+                }
+
+                el.style.marginLeft = newML + 'px';
+            })
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(me.element.caret);
         })
 
+        outdent.addEventListener('click', function (e) {
+            var startParent = getStartEndContainer(me.element.caret.startContainer);
+            var endParent = getStartEndContainer(me.element.caret.endContainer);
+            var arr = [];
+            arr.push(test(startParent, endParent));
+
+            arr.flat().forEach(el => {
+                var mL = el.style.marginLeft;
+
+                var num = mL.substring(0, mL.indexOf('px'));
+                var newML = '';
+                if (num) {
+                    if (num <= 0) {
+                        newML = 0;
+                        return;
+                    }
+                    newML = parseInt(num) - 20;
+                } else {
+                    newML = 0;
+                }
+
+                el.style.marginLeft = newML + 'px';
+            })
+            document.getSelection().removeAllRanges();
+            document.getSelection().addRange(me.element.caret);
+        })
+
+        //list 
+        var bulletedList = me.element.main.querySelector('.bulletedList');
+        var numberedList = me.element.main.querySelector('.numberedList');
+
+        bulletedList.addEventListener('click', function () {
+            document.execCommand('insertUnorderedList');
+        })
+
+        numberedList.addEventListener('click', function () {
+            document.execCommand('insertOrderedList');
+        })
 
     }
     Editor.prototype.ajaxformUpload = function (me) {
@@ -392,18 +646,26 @@
 
     }
     Editor.prototype.addContentEvent = function () {
-        var content = this.element.main.querySelector('.content');
+        var content = this.element.main.querySelector('.contentDiv');
 
-        content.addEventListener('click', this.saveRange.bind(this, Editor));
+        content.addEventListener('change', function () {
+            me.element.main.querySelector('.headingSelectDiv').style.display = 'none';
+            me.element.main.querySelector('.fontSelectDiv').style.display = 'none';
+        })
+        content.addEventListener('blur', function () {
+            var sel = document.getSelection();
+
+            sel.removeAllRanges();
+            sel.addRange(this.element.caret);
+        }.bind(this, Editor))
     }
     Editor.prototype.saveRange = function () {
 
         var sel = document.getSelection();
         var range = sel.getRangeAt(0);
-
         var clone = range.cloneRange();
+        range = clone.cloneRange();
         this.element.caret = clone;
-
     }
 
     Editor.prototype.createMainFooter = function () {
@@ -446,7 +708,6 @@
 
         if (this.element.main.querySelector('.editbtn').disabled) {
             this.element.main.querySelector('.html').innerText = this.element.main.querySelector('.edit').innerHTML;
-            console.log(this.element.main.querySelector('.edit'))
         } else {
             this.element.main.querySelector('.html').innerText = this.element.main.querySelector('.preview').innerHTML;
         }

@@ -65,10 +65,9 @@ body {
     background-size: 55%;
     background-position: center;
     background-color: transparent;
-    margin-left: 0.3%;
-    margin-right: 0.3%;
+    margin-left: 0.1%;
+    margin-right: 0.1%;
     float:left;
-
     cursor: pointer;
 }
 
@@ -81,7 +80,8 @@ body {
 }
 
 
-.heading {
+.heading, .font {
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
     position: relative;
     width: 150px;
     height: 95%;
@@ -92,11 +92,11 @@ body {
     background-position-y: center;
     z-index: 100;
 }
-.heading:hover {
+.heading:hover, .font:hover {
     background-color: #ccc;
 }
 
-.headingSpan {
+.headingSpan, .fontSpan {
     width: 71%;
     height: 83%;
     display: inline-block;
@@ -105,20 +105,20 @@ body {
     padding-left: 4%;
     font-size: 1em;
 }
-.headingSelectDiv {
+.headingSelectDiv, .fontSelectDiv{
     width: 110%;
     border : 1px solid black;
     background-color: white;
     z-index: 1;
 }
 
-.headingSelectDiv li { 
+.headingSelectDiv li, .fontSelectDiv li { 
     list-style: none;
     text-align: left;
     padding : 5%;
     
 }
-.headingSelectDiv li:hover {
+.headingSelectDiv li:hover, .fontSelectDiv li:hover {
     background-color: #ddd;
 }
 
