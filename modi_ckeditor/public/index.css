@@ -65,8 +65,8 @@ body {
     background-size: 55%;
     background-position: center;
     background-color: transparent;
-    margin-left: 0.3%;
-    margin-right: 0.3%;
+    margin-left: 0.1%;
+    margin-right: 0.1%;
     float:left;
 
     cursor: pointer;
@@ -82,6 +82,7 @@ body {
 
 
 .heading {
+    /* font-family: Verdana, Geneva, Tahoma, sans-serif; */
     position: relative;
     width: 150px;
     height: 95%;
