@@ -1,157 +1,422 @@
+(function (global) {
 
-(function(global){
-    
-    var body = document.body;
 
-    var imgUrl = [
-        // dropdown : "https://img.icons8.com/windows/24/000000/expand-arrow--v1.png",
-        "https://img.icons8.com/metro/26/000000/bold.png",//bold: 
-        "https://img.icons8.com/metro/26/000000/italic.png",//italic: 
-        // underline: "https://img.icons8.com/android/24/000000/underline.png",
-        // StrikeThrough: "https://img.icons8.com/ios-filled/50/000000/strikethrough.png",
-        "https://img.icons8.com/ios-filled/32/000000/link--v1.png",//link : 
-        "https://img.icons8.com/material-two-tone/24/000000/list.png",//circleList: 
-        "https://img.icons8.com/ios-glyphs/48/000000/numbered-list.png",//numberList: 
-        "https://img.icons8.com/ios-filled/50/000000/todo-list.png",//todoList:
-    ]
-    var indent = [
-        "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxnPg0KCQkJPHBhdGggZD0iTTY5Ljk4NywyNzAuMjk5TDUuNzAzLDMzNi4wMTVjLTcuNzI0LDcuODk2LTcuNTg0LDIwLjU1OSwwLjMxMiwyOC4yODJDOS45MDYsMzY4LjEwNCwxNC45NTQsMzcwLDE5Ljk5OSwzNzANCgkJCQljNS4xOTIsMCwxMC4zOC0yLjAxLDE0LjI5OC02LjAxNWw2NC4yMTUtNjUuNjQ1QzEwOS43OTEsMjg3LjAxOCwxMTYsMjcxLjk4NiwxMTYsMjU2YzAtMTYuMDI2LTYuMjQxLTMxLjA5NC0xNy41MjYtNDIuMzc5DQoJCQkJTDM0LjE5LDE0OC45MDVjLTcuNzg0LTcuODM3LTIwLjQ0OC03Ljg4LTI4LjI4NC0wLjA5NWMtNy44MzYsNy43ODQtNy44NzksMjAuNDQ4LTAuMDk1LDI4LjI4NGw2NC4zMzIsNjQuNzYzDQoJCQkJQzczLjkxOSwyNDUuNjM2LDc2LDI1MC42NTgsNzYsMjU2cy0yLjA4MSwxMC4zNjQtNS44NTgsMTQuMTQyQzcwLjA5LDI3MC4xOTQsNzAuMDM4LDI3MC4yNDYsNjkuOTg3LDI3MC4yOTl6Ii8+DQoJCQk8cGF0aCBkPSJNMjAsNDBoNDcyYzExLjA0NiwwLDIwLTguOTU0LDIwLTIwcy04Ljk1NC0yMC0yMC0yMEgyMEM4Ljk1NCwwLDAsOC45NTQsMCwyMFM4Ljk1NCw0MCwyMCw0MHoiLz4NCgkJCTxwYXRoIGQ9Ik00OTIsNDcySDIwYy0xMS4wNDYsMC0yMCw4Ljk1NC0yMCwyMGMwLDExLjA0Niw4Ljk1NCwyMCwyMCwyMGg0NzJjMTEuMDQ2LDAsMjAtOC45NTQsMjAtMjANCgkJCQlDNTEyLDQ4MC45NTQsNTAzLjA0Niw0NzIsNDkyLDQ3MnoiLz4NCgkJCTxwYXRoIGQ9Ik00OTIsMTE4SDIxMmMtMTEuMDQ2LDAtMjAsOC45NTQtMjAsMjBzOC45NTQsMjAsMjAsMjBoMjgwYzExLjA0NiwwLDIwLTguOTU0LDIwLTIwQzUxMiwxMjYuOTU0LDUwMy4wNDYsMTE4LDQ5MiwxMTh6Ii8+DQoJCQk8cGF0aCBkPSJNNDkyLDIzNkgyMTJjLTExLjA0NiwwLTIwLDguOTU0LTIwLDIwczguOTU0LDIwLDIwLDIwaDI4MGMxMS4wNDYsMCwyMC04Ljk1NCwyMC0yMEM1MTIsMjQ0Ljk1NCw1MDMuMDQ2LDIzNiw0OTIsMjM2eiIvPg0KCQkJPHBhdGggZD0iTTQ5MiwzNTRIMjEyYy0xMS4wNDYsMC0yMCw4Ljk1NC0yMCwyMGMwLDExLjA0Niw4Ljk1NCwyMCwyMCwyMGgyODBjMTEuMDQ2LDAsMjAtOC45NTQsMjAtMjANCgkJCQlDNTEyLDM2Mi45NTQsNTAzLjA0NiwzNTQsNDkyLDM1NHoiLz4NCgkJPC9nPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K",
-        "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE5LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPHN2ZyB2ZXJzaW9uPSIxLjEiIGlkPSJDYXBhXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4Ig0KCSB2aWV3Qm94PSIwIDAgNTEyIDUxMiIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgNTEyIDUxMjsiIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxnPg0KCQkJPHBhdGggZD0iTTgxLjgxLDM2Mi4wOTVDODUuNzIsMzY2LjAzLDkwLjg1OSwzNjgsOTYsMzY4YzUuMDk2LDAsMTAuMTk0LTEuOTM2LDE0LjA5NS01LjgxMQ0KCQkJCWM3LjgzNi03Ljc4NCw3Ljg3OS0yMC40NDgsMC4wOTUtMjguMjg0bC02NC4zMzItNjQuNzYzQzQyLjA4MSwyNjUuMzY0LDQwLDI2MC4zNDIsNDAsMjU1YzAtNS4zNDIsMi4wODEtMTAuMzY0LDUuOTA1LTE0LjE4OQ0KCQkJCWw2NC4yODQtNjQuNzE2YzcuNzg0LTcuODM2LDcuNzQyLTIwLjUtMC4wOTUtMjguMjg0Yy03LjgzNi03Ljc4NC0yMC41LTcuNzQyLTI4LjI4NCwwLjA5NWwtNjQuMjM3LDY0LjY2OA0KCQkJCUM2LjI0MSwyMjMuOTA2LDAsMjM4Ljk3NCwwLDI1NXM2LjI0MSwzMS4wOTQsMTcuNTI2LDQyLjM3OUw4MS44MSwzNjIuMDk1eiIvPg0KCQkJPHBhdGggZD0iTTIwLDQwaDQ3MmMxMS4wNDYsMCwyMC04Ljk1NCwyMC0yMHMtOC45NTQtMjAtMjAtMjBIMjBDOC45NTQsMCwwLDguOTU0LDAsMjBTOC45NTQsNDAsMjAsNDB6Ii8+DQoJCQk8cGF0aCBkPSJNNDkyLDQ3MkgyMGMtMTEuMDQ2LDAtMjAsOC45NTQtMjAsMjBjMCwxMS4wNDYsOC45NTQsMjAsMjAsMjBoNDcyYzExLjA0NiwwLDIwLTguOTU0LDIwLTIwDQoJCQkJQzUxMiw0ODAuOTU0LDUwMy4wNDYsNDcyLDQ5Miw0NzJ6Ii8+DQoJCQk8cGF0aCBkPSJNNDkyLDM1NEgyMTJjLTExLjA0NiwwLTIwLDguOTU0LTIwLDIwYzAsMTEuMDQ2LDguOTU0LDIwLDIwLDIwaDI4MGMxMS4wNDYsMCwyMC04Ljk1NCwyMC0yMA0KCQkJCUM1MTIsMzYyLjk1NCw1MDMuMDQ2LDM1NCw0OTIsMzU0eiIvPg0KCQkJPHBhdGggZD0iTTQ5MiwxMThIMjEyYy0xMS4wNDYsMC0yMCw4Ljk1NC0yMCwyMHM4Ljk1NCwyMCwyMCwyMGgyODBjMTEuMDQ2LDAsMjAtOC45NTQsMjAtMjBDNTEyLDEyNi45NTQsNTAzLjA0NiwxMTgsNDkyLDExOHoiLz4NCgkJCTxwYXRoIGQ9Ik00OTIsMjM2SDIxMmMtMTEuMDQ2LDAtMjAsOC45NTQtMjAsMjBzOC45NTQsMjAsMjAsMjBoMjgwYzExLjA0NiwwLDIwLTguOTU0LDIwLTIwQzUxMiwyNDQuOTU0LDUwMy4wNDYsMjM2LDQ5MiwyMzZ6Ii8+DQoJCTwvZz4NCgk8L2c+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8L3N2Zz4NCg=="
-    ]
-    var doIcon = [
-        "https://img.icons8.com/android/24/000000/undo.png", // undo
-        "https://img.icons8.com/android/24/000000/redo.png" // redo
-    ]
-    function CKEditor() {
+    var list = {
+        mainDivList: ['toolbar', 'content', 'footer'],
+        contentList: ['edit', 'html', 'preview'],
+        toolbarList: ['heading', 'bold', 'italic', 'underline', 'strikeThrough', 'newPage', 'imageUpload'],
+        headerDivText: ['Classic', 'Balloon', 'Balloon Block', 'Inline', 'Document', 'Pagination']
+    };
+
+
+    var toolbarImgUrl = {
+        headingImgUrl: "https://img.icons8.com/windows/24/000000/expand-arrow--v1.png",
+        boldImgUrl: "https://img.icons8.com/metro/26/000000/bold.png",
+        italicImgUrl: "https://img.icons8.com/metro/26/000000/italic.png",
+        underlineImgUrl: "https://img.icons8.com/android/24/000000/underline.png",
+        strikeThroughImgUrl: "https://img.icons8.com/ios-filled/50/000000/strikethrough.png",
+
+        newPageImgUrl: "https://img.icons8.com/office/16/000000/new-by-copy--v1.png",
+        imageUploadImgUrl: "https://img.icons8.com/ios/50/000000/image.png"
+
         
+
+    };
+
+    function Editor(node) {
+        this.element = {
+            root: document.getElementById(node)
+        }
     }
-    
-    
 
-    var headerDivText = ['Classic', 'Document', 'Pagination'];
-    var mainDivText = ['toolbar', 'content', 'word-count'];
-    
-    CKEditor.prototype.createTemplate = function(){
+    Editor.prototype.createTemplate = function () {
 
-        var wrap = document.createElement('div');
+
         var header = document.createElement('header');
         var main = document.createElement('main');
+        document.querySelector
 
-        wrap.setAttribute('class', 'wrap');
         header.setAttribute('class', 'header');
-        main.setAttribute('class','main');
-        
-        for(var i=0; i<headerDivText.length; i++){
-            var headerDiv = document.createElement('div');
-            headerDiv.setAttribute('class','headerDiv');
-            headerDiv.textContent = headerDivText[i];
-            header.appendChild(headerDiv);
-        }
+        main.setAttribute('class', 'main');
 
-        for(var i=0; i<mainDivText.length; i++){
-            var mainDiv = document.createElement('div');
-            mainDiv.setAttribute('class', mainDivText[i]);
-            // mainDiv.className += ' mainDiv';
-            main.appendChild(mainDiv);
-        }
-
-        wrap.appendChild(header);
-        wrap.appendChild(main);
-
-        body.appendChild(wrap)
-
-        this.wrap = wrap;
-
+        document.body.prepend(header);
+        this.element.root.appendChild(main);
+        this.element.main = main;
     }
 
-    CKEditor.prototype.createMainToolbar = function(){
-        
-        var mainHeader = this.wrap.querySelector('.toolbar');
-        var fr = document.createDocumentFragment();
-        var headingDiv = document.createElement('div');
-        var headingSelectDiv = document.createElement('div');
+    Editor.prototype.createHeader = function () {
 
-        headingSelectDiv.setAttribute('class', headingSelectDiv);
-        // headingSelectDiv.style.display = "none";
-
-        headingDiv.setAttribute('class','heading');
-        fr.appendChild(headingDiv);
-        fr.appendChild(headingSelectDiv);
-        
-        var span = document.createElement('span');
-        span.setAttribute('class', 'seperate');
-        fr.appendChild(span);
-        
-        for(var i=0; i< imgUrl.length; i++){
-            var button = document.createElement('button');
-            button.setAttribute('class','toolbarButton');
-            button.style.backgroundImage = "url("+imgUrl[i]+")";
-            fr.appendChild(button);
-        }
-        span = document.createElement('span');
-        span.setAttribute('class', 'seperate');
-        fr.appendChild(span);
-
-        for(var i=0; i<2; i++){
-            var button = document.createElement('button');
-            button.setAttribute('class','toolbarButton');
-            button.style.backgroundImage = "url("+indent[i]+")";
-            fr.appendChild(button);
-        }
-        span = document.createElement('span');
-        span.setAttribute('class', 'seperate');
-        fr.appendChild(span);
-
-        for(var i=0; i<2; i++){
-            var button = document.createElement('button');
-            button.setAttribute('class','toolbarButton');
-            fr.appendChild(button);
-        }
-        for(var i=0; i<2; i++){
+        var header = document.querySelector('.header');
+        list.headerDivText.forEach(function (el) {
             var div = document.createElement('div');
-            div.setAttribute('class','toolbarButton');
-            div.className += ' toolbarDiv';
-            fr.appendChild(div);
-        }
-        for(var i=0; i<2; i++){
-            var button = document.createElement('button');
-            button.setAttribute('class','toolbarButton');
-            button.style.backgroundImage = "url("+doIcon[i]+")";
-            fr.appendChild(button);
-        }
-        console.log(this.wrap)
-        console.log(mainHeader);
-
-        
-        mainHeader.appendChild(fr);
-        for(var i=0; i<mainHeader.childNodes.length; i++){
-            mainHeader.childNodes[i].className += ' toolbarItem';
-            console.log(mainHeader.childNodes[i].className);
-        }
-
-        // <div> <span> <button> <button> <button> <button> <button> <button> <span> <button> <button> <span> <button> <button> <di> <div> <button> <button>
+            div.setAttribute('class', el);
+            div.classList.add('class', 'headerDiv');
+            div.textContent = el;
+            header.appendChild(div);
+        })
     }
+    Editor.prototype.createMain = function () {
 
-    CKEditor.prototype.addToolbarHeadingEvent = function(){
-        var heading = this.wrap.querySelector('.heading');
-        
-        heading.addEventListener('click', function(){
+        var tmp = document.createDocumentFragment();
 
+        list.mainDivList.forEach(function (el) {
+            var div = document.createElement('div');
+            div.setAttribute('class', el);
+            tmp.appendChild(div);
         })
 
+        this.element.main.appendChild(tmp);
+    }
+
+    Editor.prototype.createMainToolbar = function () {
+
+        var tmp = document.createDocumentFragment();
+        var toolbar = this.element.main.querySelector('.toolbar');
+
+        list.toolbarList.forEach(function (el) {
+            var div = document.createElement('div');
+            var button = document.createElement('button');
+            div.setAttribute('class', el);
+            div.style.backgroundImage = "url(" + toolbarImgUrl[el + 'ImgUrl'] + ")";
+            div.classList.add('toolbarDiv');
+
+            tmp.appendChild(div);
+
+            if (el == 'heading' || el == 'strikeThrough') {
+                var span = document.createElement('span');
+                span.setAttribute('class', 'seperate');
+                div.after(span);
+            }
+            if (el == 'imageUpload') {
+                var form = document.createElement('form');
+
+                form.setAttribute('enctype', 'multipart/form-data');
+                form.setAttribute('method', 'POST');
+                form.setAttribute('class', 'uploadForm');
+                form.setAttribute('name', 'uploadForm');
+                form.setAttribute('action', './up');
+
+                var input = document.createElement('input');
+                input.setAttribute('type', 'file');
+                input.setAttribute('class', 'file');
+                input.setAttribute('name', 'img');
+                input.style.display = 'none';
+
+                form.appendChild(input);
+                div.appendChild(form);
+            }
+            if (el == 'bold' || el == 'italic' || el == 'underline' || el == 'strikeThrough') {
+                div.classList.add('deco');
+            }
+        })
+
+        toolbar.appendChild(tmp);
+    }
+
+
+    function setDecoButtonColor(button, commandState) {
+        if (document.queryCommandState(commandState)) {
+            button.style.backgroundColor = "#eee";
+        } else {
+            button.style.backgroundColor = "white";
+        }
+    }
+    Editor.prototype.addToolbarEvent = function () {
+        var me = this;
+
+        // heading
+        // deco
+        var deco = me.element.main.querySelectorAll('.deco');
+        deco.forEach(function (el) {
+            el.addEventListener('click', function () {
+                var decoName = el.className.split(' ')[0];
+                console.log(el.className.split(' ')[0])
+                document.execCommand(decoName);
+                setDecoButtonColor(el, decoName);
+            })
+        })
+        // newpage
+        var newPage = me.element.main.querySelector('.newPage');
+        // imageupload
+        var imageUpload = me.element.main.querySelector('.imageUpload');
+        var fileInput = me.element.main.querySelector('.file');
+        imageUpload.addEventListener('click', function () {
+            var agent = navigator.userAgent.toLowerCase();
+
+            if ((navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1)) {
+                // TODO : 익스플로러에서 input(type=file).value의 값을 초기화 하는 기능
+                // var newInput = document.createElement('input');
+                // newInput.setAttribute('type', 'file');
+                // newInput.setAttribute('class', 'file');
+                // newInput.setAttribute('name', 'img');
+                // newInput.style.display = 'none';
+                // var form = me.element.main.querySelector('.uploadForm')
+                // var file = $(me.element.main).find('.file')
+            } else {
+                fileInput.value = "";
+            }
+            fileInput.click();
+        })
+        fileInput.addEventListener('change', function (e) {
+            var inputData = fileInput.files;
+            if (fileInput.value == "" || $('.file').val() == "") {
+                return;
+            } else {
+
+                if (inputData !== undefined) {
+                    var fd = new FormData();
+                    var file = inputData[0];
+
+                    fd.append('img', file);
+                    me.sendAjax('/up', fd);
+                } else {
+                    me.ajaxformUpload(me);
+                }
+
+            }
+        })
+    }
+    Editor.prototype.ajaxformUpload = function (me) {
+
+        $(me.element.main).find('form[name=uploadForm]').ajaxForm({
+            dataType: "json",
+            url: "/up",
+            type: "POST",
+            success: function (res) {
+                me.addImage(res.imgUrl);
+            },
+            error: function (e) {
+                console.log(e)
+            }
+
+        }).submit();
+    }
+    Editor.prototype.sendAjax = function (url, data) {
+
+        var req = new XMLHttpRequest();
+        req.open('POST', url)
+        req.send(data);
+        var me = this;
+
+        req.onreadystatechange = function (e) {
+            if (req.readyState === req.DONE) {
+                if (req.responseText) {
+                    var res = req.responseText;
+                    var imgurl = JSON.parse(res).imgUrl;
+                    me.addImage(imgurl);
+                }
+            }
+        }
+    }
+
+    Editor.prototype.addImage = function (imgUrl) {
+        var img = document.createElement('img');
+
+        img.setAttribute('src', imgUrl);
+
+        this.element.caret.deleteContents();
+        this.element.caret.insertNode(img, this.element.caret);
+
+        this.element.caret.collapse(false);
+
+        var sel = document.getSelection();
+
+        sel.removeAllRanges();
+        sel.addRange(this.element.caret);
+    }
+
+    Editor.prototype.createMainContent = function() {
+        var content = this.element.main.querySelector('.content');
+        var tmp = document.createDocumentFragment();
+
+        list.contentList.forEach(function(el){
+            var div = document.createElement('div');
+            div.setAttribute('class', el);
+            div.classList.add('contentDiv');
+            if (el == 'edit') {
+                div.setAttribute('contentEditable', 'true');
+                div.innerHTML = '<p><br></p>';
+            } else {
+                div.style.display = "none";
+            }
+            tmp.appendChild(div);
+        })
+        content.appendChild(tmp);
         
     }
-    CKEditor.prototype.createMainContent = function(){
+    Editor.prototype.addContentEvent = function () {
+        var content = this.element.main.querySelector('.content');
+
+        content.addEventListener('click', this.saveRange.bind(this, Editor));
+    }
+    Editor.prototype.saveRange = function () {
+
+        var sel = document.getSelection();
+        var range = sel.getRangeAt(0);
+
+        var clone = range.cloneRange();
+        this.element.caret = clone;
 
     }
-    CKEditor.prototype.createMainWordCount = function(){
+
+    Editor.prototype.createMainFooter = function () {
+        var footer = this.element.main.querySelector('.footer');
+        var tmp = document.createDocumentFragment();
+
+
+
+        list.contentList.forEach(function (el) {
+            var button = document.createElement('button');
+            button.setAttribute('class', el + "btn");
+            button.textContent = el;
+            button.classList.add('footerBtn');
+            if (el === 'edit') {
+                button.setAttribute('disabled', 'true');
+            }
+            tmp.appendChild(button);
+        })
+        footer.appendChild(tmp);
 
     }
-    
 
-    CKEditor.prototype.createAll = function(){
+    Editor.prototype.toEdit = function () {
+
+
+        if (this.element.main.querySelector('.htmlbtn').disabled) {
+            this.element.main.querySelector('.edit').innerHTML = this.element.main.querySelector('.html').innerText;
+        } else {
+            this.element.main.querySelector('.edit').innerHTML = this.element.main.querySelector('.preview').innerHTML;
+        }
+        this.setDecoButtonOpacity(1);
+        this.setFooterButtonState('edit');
+        this.element.main.querySelector('.edit').focus();
+    }
+
+
+    // html보기
+    Editor.prototype.toHtml = function () {
+
+
+        if (this.element.main.querySelector('.editbtn').disabled) {
+            this.element.main.querySelector('.html').innerText = this.element.main.querySelector('.edit').innerHTML;
+        } else {
+            this.element.main.querySelector('.html').innerText = this.element.main.querySelector('.preview').innerHTML;
+        }
+        this.setDecoButtonOpacity(0.5);
+        this.setFooterButtonState('html');
+    }
+
+
+    // preiew보기
+    Editor.prototype.toPreview = function () {
+
+
+        if (this.element.main.querySelector('.htmlbtn').disabled) {
+            this.element.main.querySelector('.preview').innerHTML = this.element.main.querySelector('.html').innerText;
+        } else {
+            this.element.main.querySelector('.preview').innerHTML = this.element.main.querySelector('.edit').innerHTML;
+        }
+        this.setDecoButtonOpacity(0.5);
+        this.setFooterButtonState('preview');
+    }
+
+
+    // footer button 클릭시  deco버튼의 투명도 조절
+    Editor.prototype.setDecoButtonOpacity = function (val) {
+        var link = this.element.main.getElementsByClassName('link');
+
+
+        for (var i = 0; i < link.length; i++) {
+            link[i].firstChild.style.opacity = val;
+        }
+    }
+
+
+    // footer button state 설정
+    Editor.prototype.setFooterButtonState = function (btnName) {
+        var deco = this.element.main.querySelector('.deco');
+        var decoChildLength = deco.childNodes.length;
+
+
+        this.element.main.querySelector('.edit').style.display = "none";
+        this.element.main.querySelector('.html').style.display = "none";
+        this.element.main.querySelector('.preview').style.display = "none";
+
+
+        this.element.main.querySelector('.editbtn').removeAttribute("disabled");
+        this.element.main.querySelector('.htmlbtn').removeAttribute("disabled");
+        this.element.main.querySelector('.previewbtn').removeAttribute("disabled");
+
+
+        if (btnName == 'edit') {
+
+
+            this.element.main.querySelector('.deco').style.pointerEvents = "auto";
+
+
+            this.element.main.querySelector('.edit').style.display = "block";
+            this.element.main.querySelector('.editbtn').disabled = true;
+
+
+        } else if (btnName == 'html') {
+            this.element.main.querySelector('.html').setAttribute('contentEditable', 'true');
+
+            deco.style.pointerEvents = "none";
+            for (var i = 0; i < decoChildLength; i++) {
+                deco.childNodes[i].style.backgroundColor = "white";
+            }
+
+
+            this.element.main.querySelector('.html').style.display = "block";
+            this.element.main.querySelector('.htmlbtn').disabled = true;
+
+
+        } else if (btnName == 'preview') {
+
+
+            deco.style.pointerEvents = "none";
+
+
+            for (var i = 0; i < decoChildLength; i++) {
+                deco.childNodes[i].style.backgroundColor = "white";
+            }
+            this.element.main.querySelector('.preview').style.display = "block";
+            this.element.main.querySelector('.previewbtn').disabled = true;
+        }
+
+
+    }
+
+
+
+
+    // footer 이벤트 설정
+    Editor.prototype.addFooterEvent = function () {
+
+
+        this.element.main.querySelector('.editbtn').addEventListener('click', this.toEdit.bind(this, Editor));
+        this.element.main.querySelector('.htmlbtn').addEventListener('click', this.toHtml.bind(this, Editor));
+        this.element.main.querySelector('.previewbtn').addEventListener('click', this.toPreview.bind(this, Editor));
+
+
+    }
+    Editor.prototype.createAll = function () {
         this.createTemplate();
+
+        this.createHeader();
+
+        this.createMain();
         this.createMainToolbar();
+        this.createMainContent();
+        this.createMainFooter();
+
+        this.addToolbarEvent();
+        this.addContentEvent();
+        this.addFooterEvent();
+
     }
-    global.CKEditor = CKEditor;
+
+
+    global.Editor = Editor;
+
 })(window);
