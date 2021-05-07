@@ -49,7 +49,8 @@
    지금 생각해보면 getElementsByTagName기능도 고려해봤으면 더 쉽지 않았을까?...    
      
    <2>  
-   텍스트 서식이나 indent,outdnet든 서식 기능에 대한 버튼을 선택했을 때 서식은 적용되나 range가 보존되지 않았던 현상  
+   텍스트 서식이나 indent,outdnet든 서식 기능에 대한 버튼을 선택했을 때  
+   서식은 적용되나 range가 보존되지 않았던 현상  
    range에 대해 set해주는 구문이 없어서 발생했던 것..  
    range.setStart(,,,)  
    range.setEnd(,,,)  
