@@ -1,0 +1,162 @@
+body {
+    width: 1000px;
+    margin : 10px auto;
+}
+.header {
+    width: 100%;
+    height: 50px;
+    background-color: white;
+    margin-bottom: 70px;
+    text-align: center;
+    
+ }
+ .headerDiv:hover {
+     cursor: pointer;
+     background-color: #efefef;
+ }
+
+.headerDiv {
+    width: 12%;
+    display: inline-block;
+    padding : 10px;
+    text-align: center;
+    border-top: 5px solid papayawhip;
+    margin-right: 10px;
+}
+
+#wrap {
+    width: 800px;
+    margin: 0px auto;
+    position: relative;
+}
+
+
+.main {
+    width: 100%;
+    height: 500px;
+    
+}
+
+.toolbar{
+    width: 100%;
+    height: 8%;
+    padding : 1%;
+    border : 1px solid #ccc;
+    background-color: #fafafa;
+}
+.seperate {
+    display: block;
+    width: 0;
+    height:  95%;
+    border : 0.5px solid #ccc;
+    background-color: #ccc;
+    cursor : none;
+    margin-left: 0.3%;
+    margin-right: 0.3%;
+    float:left;
+}
+
+.toolbarDiv {
+    display: block;
+    width: 40px;
+    height: 40px;
+    border : 1px solid transparent;
+    background-repeat: no-repeat;
+    background-size: 55%;
+    background-position: center;
+    background-color: transparent;
+    margin-left: 0.3%;
+    margin-right: 0.3%;
+    float:left;
+
+    cursor: pointer;
+}
+
+.toolbarDiv::after {
+    clear: both;
+}
+.toolbarDiv:hover {
+    border: 1px solid #ddd;
+    background-color: #efefef;
+}
+
+
+.heading {
+    position: relative;
+    width: 150px;
+    height: 95%;
+    display: block;
+    background-repeat: no-repeat;
+    background-size: 10%;
+    background-position-x : 90%;
+    background-position-y: center;
+    z-index: 100;
+}
+.heading:hover {
+    background-color: #ccc;
+}
+
+.headingSpan {
+    width: 71%;
+    height: 83%;
+    display: inline-block;
+    text-align: left;
+    padding-top : 4%;
+    padding-left: 4%;
+    font-size: 1em;
+}
+.headingSelectDiv {
+    width: 110%;
+    border : 1px solid black;
+    background-color: white;
+    z-index: 1;
+}
+
+.headingSelectDiv li { 
+    list-style: none;
+    text-align: left;
+    padding : 5%;
+    
+}
+.headingSelectDiv li:hover {
+    background-color: #ddd;
+}
+
+.content {
+    width: 100%;
+    height: 80%;
+    padding : 1%;
+    border-right : 1px solid #ccc;
+    border-left : 1px solid #ccc;
+    overflow-y: auto;
+    
+}
+.content > div {
+    width: 100%;
+    height: 80%;
+    outline: none;
+    
+}
+.footer {
+    width: 100%;
+    height: 10%;
+    padding: 0 1%;
+    border : 1px solid #ccc;
+    border-top : 0;
+    background-color: #fafafa;
+}
+
+.footerBtn {
+    display: inline-block;
+    border: 1px solid transparent;
+    border-right:1px solid #ccc;
+    width: 120px;
+    height: 100%;
+    background-color: transparent;
+    vertical-align: middle;
+    font-variant: small-caps;
+    font-weight: bold;
+    font-size: 1em;
+    cursor: pointer;
+    outline: none;
+}
