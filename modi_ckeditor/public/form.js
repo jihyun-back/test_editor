@@ -136,7 +136,7 @@
                 div.classList.add('deco');
             }
 
-            if ( el.includes('List')){
+            if (el.includes('List')) {
                 div.classList.add('list');
             }
 
@@ -156,7 +156,7 @@
 
     function getStartEndContainer(caretParentNode) {
         while (caretParentNode !== null) {
-            if (caretParentNode.tagName === 'P' || caretParentNode.tagName === 'H1' || caretParentNode.tagName === 'H2' || caretParentNode.tagName === 'H3') {
+            if (caretParentNode.tagName === 'P' || caretParentNode.tagName === 'H1' || caretParentNode.tagName === 'H2' || caretParentNode.tagName === 'H3' || caretParentNode.tagName ==='LI') {
                 return caretParentNode;
             }
             caretParentNode = caretParentNode.parentNode || caretParentNode.parentElement;
@@ -167,7 +167,7 @@
         var testArr = [];
 
         while (start !== end) {
-            if (start.tagName === 'P' || start.tagName === 'H1' || start.tagName === 'H2' || start.tagName === 'H3') {
+            if (start.tagName === 'P' || start.tagName === 'H1' || start.tagName === 'H2' || start.tagName === 'H3' || start.tagName === 'LI') {
                 testArr.push(start);
             } else if (start.tagName === 'DIV') {
                 if (start.childNodes.length > 0) {
@@ -204,11 +204,11 @@
 
         var arr = [];
         // parentNode구하기
-        
+
         var startParent = getStartEndContainer(start);
         var endParent = getStartEndContainer(end);
 
-        
+
 
         arr.push(test(startParent, endParent).flat());
 
@@ -256,7 +256,7 @@
                 })
 
             } else {
-                arr.flat().forEach(function (el,index) {
+                arr.flat().forEach(function (el, index) {
                     var node = document.createElement('p');
                     el.style.font = '14px Verdana';
                     node.innerHTML = el.innerHTML;
@@ -285,7 +285,7 @@
             }
             sel.removeAllRanges();
             sel.addRange(rng);
-            
+
             // range 저장하는 방법
             // 1. outerHTML 수정
             // 2. appendChild를 통해 기존 태그의 자식을 삽입 후 기존 태그를 지운다
@@ -349,6 +349,7 @@
             }
             if (me.element.main.querySelector('.edit') == document.activeElement) {
                 me.saveRange();
+                console.log(me.element.caret);
             }
         })
         // newpage
@@ -398,57 +399,55 @@
         // indent, outdent
         var indent = me.element.main.querySelector('.indent');
         var outdent = me.element.main.querySelector('.outdent');
-        
-        var startParent = '';
-        var endParent = '';
+
+
 
         indent.addEventListener('click', function () {
-            startParent = getStartEndContainer(me.element.caret.startContainer);
-            endParent = getStartEndContainer(me.element.caret.endContainer);
+            var startParent = getStartEndContainer(me.element.caret.startContainer);
+            var endParent = getStartEndContainer(me.element.caret.endContainer);
             var arr = [];
             arr.push(test(startParent, endParent));
-        
-            arr.flat().forEach(el=>{
+
+            arr.flat().forEach(el => {
                 var mL = el.style.marginLeft;
-                
+
                 console.log(mL);
-                var num = mL.substring(0,mL.indexOf('px'));
+                var num = mL.substring(0, mL.indexOf('px'));
                 var newML = '';
-                if(num){
-                    newML = parseInt(num)+10;
+                if (num) {
+                    newML = parseInt(num) + 20;
                 } else {
                     newML = 20;
                 }
 
-                el.style.marginLeft = newML+'px';
+                el.style.marginLeft = newML + 'px';
             })
             document.getSelection().removeAllRanges();
             document.getSelection().addRange(me.element.caret);
         })
 
-        outdent.addEventListener('click', function () {
-            startParent = getStartEndContainer(me.element.caret.startContainer);
-            endParent = getStartEndContainer(me.element.caret.endContainer);
+        outdent.addEventListener('click', function (e) {
+            var startParent = getStartEndContainer(me.element.caret.startContainer);
+            var endParent = getStartEndContainer(me.element.caret.endContainer);
             var arr = [];
-        arr.push(test(startParent, endParent));
-            
-            arr.flat().forEach(el=>{
+            arr.push(test(startParent, endParent));
+
+            arr.flat().forEach(el => {
                 var mL = el.style.marginLeft;
-                
-                console.log(mL);
-                var num = mL.substring(0,mL.indexOf('px'));
+
+                var num = mL.substring(0, mL.indexOf('px'));
                 var newML = '';
-                if(num){
-                    if(num <=0){
+                if (num) {
+                    if (num <= 0) {
                         newML = 0;
                         return;
                     }
-                    newML = parseInt(num)-10;
+                    newML = parseInt(num) - 20;
                 } else {
                     newML = 0;
                 }
 
-                el.style.marginLeft = newML+'px';
+                el.style.marginLeft = newML + 'px';
             })
             document.getSelection().removeAllRanges();
             document.getSelection().addRange(me.element.caret);
@@ -456,9 +455,9 @@
 
         //list 
         var bulletedList = me.element.main.querySelector('.bulletedList');
-        var numberedList =me.element.main.querySelector('.numberedList');
+        var numberedList = me.element.main.querySelector('.numberedList');
         var todoList = me.element.main.querySelector('.todoList');
-        
+
 
 
         // list버튼 클릭 시
@@ -474,7 +473,7 @@
         //  2) ul태그, li태그를 만든다.
         //  3) 현재 선택된 태그가 ul이 아닐 경우 
         //    3-1) 해당 태그의 앞에 ul태그를 insert 후 done(현재선택된 list버튼의 className)을 add한다.
-        //    3-2) 해당 태그의 innerHTML을 li태그에 넣는다.
+        //    3-2) 해당 태그의 innerHTML을 li태그에 넣는다. 
         //    3-3) ul태그에 li태그를 append한다
         //  4) 현재 선택된 태그가 ul일 경우
         //    4-1)  해당 태그의 className과 click한 className을 비교하여 변경한다.
@@ -487,28 +486,125 @@
         //  4) ul태그 및 li태그를 삭제한다.
         //  5) 현재 선택된 range를 다시 표기한다.
 
-        bulletedList.addEventListener('click', function(){
-            startParent = getStartEndContainer(me.element.caret.startContainer);
-            endParent = getStartEndContainer(me.element.caret.endContainer);
-            var arr = [];
-            arr.push(test(startParent, endParent));
 
-            arr.flat().forEach( el => {
-                var ul = document.createElement('ul');
-                var li = document.createElement('li');
-                ul.style.lineStyleType
-                me.element.caret.insertNode(ul);
-              
-            });
-        })
 
-        numberedList.addEventListener('click', function(){
+        // ol태그의 경우 
+
+       
+
+       
+
+   
+        bulletedList.addEventListener('click', function () {
+            document.execCommand('insertUnorderedList');
+            // var startParent = getStartEndContainer(me.element.caret.startContainer);
+            // var endParent = getStartEndContainer(me.element.caret.endContainer);
+            // var arr = [];
+            // var pfrag = document.createDocumentFragment();
+            // var lifrag = document.createDocumentFragment();
+            // var sel = document.getSelection();
+            // var rng = document.createRange();
+            // var startIndex = '';
+            // if(startParent.tagName === 'LI'){
+            //     startParent.parentElement.childNodes.forEach((el,index)=>{
+            //         if(startParent === el)
+            //             startIndex = index;                        
+            //     })
+            // }
+            // if(endParent.tagName === 'LI'){
+            //     endParent.parentElement.childNodes.forEach((el,index)=>{
+            //         if(endParent === el)
+            //             endIndex = index;                        
+            //     })
+            // }
+            // arr.push(test(startParent, endParent));
+            // if(startParent.tagName === 'LI'){
+            //     var ptest = document.createElement('p');
+            //     ptest.innerHTML = startParent.parentElement.innerHTML;
+                
+     
+            //     var frag = document.createDocumentFragment();
+     
+                
+            //     for(var i=0; i<startIndex; i++){
+            //      var newUl = document.createElement('ul');    
+            //      newUl.appendChild(ptest.childNodes[i]);
+            //      frag.appendChild(newUl);
+            //     }
+            //     for (var i=0; i<=endIndex-startIndex; i++){
+            //         var newP = document.createElement('p');
+            //         for(var j=0; j<ptest.childNodes[i].childNodes.length; j++)
+            //         newP.appendChild(ptest.childNodes[i].childNodes[j]);
+            //         frag.appendChild(newP);
+            //     }
+            //     for (var i=0; i<ptest.childNodes.length; i++){
+            //      var newUl = document.createElement('ul');    
+            //      newUl.appendChild(ptest.childNodes[i]);
+            //      frag.appendChild(newUl);
+            //     }
+                
+            //     startParent.parentElement.before(frag);
+            //     startParent.parentElement.remove();
+            // }
+           
+           
+
+           
+            // var ul = document.createElement('ul');
+            // startParent.before(ul);
+            // // console.log(me.element.caret);
+            // arr.flat().forEach((el,index) => {
+            //     if(el.tagName === 'LI'){
+                    
+            //         var p = document.createElement('p');
+            //         startParent.before(p);
+            //         p.innerHTML = el.innerHTML;
+            //         pfrag.appendChild(p);
+            //         el.remove();
+            //     } else {
+            //         var li = document.createElement('li');
+            //         li.innerHTML = el.innerHTML;
+            //         lifrag.appendChild(li);
+            //         el.remove();
+            //     }
+                
             
+            // })
+            // if(pfrag.childNodes.length>0){
+            //     ul.remove();
+            // } else if (lifrag.childNodes.length>0){
+            //     ul.appendChild(lifrag);
+            // }
+   
+            
+            // // el.tagName == 'ul'
+
+            
+         
+
+           
         })
 
-        todoList.addEventListener('click', function(){
-            
+        numberedList.addEventListener('click', function () {
+            document.execCommand('insertOrderedList');
+            // var startParent = getStartEndContainer(me.element.caret.startContainer);
+            // var endParent = getStartEndContainer(me.element.caret.endContainer);
+            // var arr = [];
+            // arr.push(test(startParent, endParent));
+            // var ol = document.createElement('ol');
+            // startParent.before(ol);
+            // arr.flat().forEach(el => {
+            //     var li = document.createElement('li');
+            //     li.innerHTML = el.innerHTML;
+            //     ol.appendChild(li);
+            //     el.remove();
+            // });
         })
+
+        // todoList.addEventListener('click', function () {
+
+        // })
+
 
     }
     Editor.prototype.ajaxformUpload = function (me) {
