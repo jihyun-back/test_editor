@@ -4,8 +4,9 @@
     var list = {
         mainDivList: ['toolbar', 'content', 'footer'],
         contentList: ['edit', 'html', 'preview'],
-        toolbarList: ['heading', 'bold', 'italic', 'underline', 'strikeThrough', 'newPage', 'imageUpload'],
-        headerDivText: ['Classic', 'Balloon', 'Balloon Block', 'Inline', 'Document', 'Pagination']
+        toolbarList: ['heading', 'bold', 'italic', 'underline', 'strikeThrough', 'newPage', 'imageUpload', 'indent', 'outdent'],
+        headerDivText: ['Classic', 'Balloon', 'Balloon Block', 'Inline', 'Document', 'Pagination'],
+        headerSelect: ['Heading1', 'Heading2', 'Heading3', 'Paragraph']
     };
 
 
@@ -15,12 +16,10 @@
         italicImgUrl: "https://img.icons8.com/metro/26/000000/italic.png",
         underlineImgUrl: "https://img.icons8.com/android/24/000000/underline.png",
         strikeThroughImgUrl: "https://img.icons8.com/ios-filled/50/000000/strikethrough.png",
-
         newPageImgUrl: "https://img.icons8.com/office/16/000000/new-by-copy--v1.png",
-        imageUploadImgUrl: "https://img.icons8.com/ios/50/000000/image.png"
-
-        
-
+        imageUploadImgUrl: "https://img.icons8.com/ios/50/000000/image.png",
+        outdentImgUrl: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjUxMS42MjZweCIgaGVpZ2h0PSI1MTEuNjI2cHgiIHZpZXdCb3g9IjAgMCA1MTEuNjI2IDUxMS42MjYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMS42MjYgNTExLjYyNjsiDQoJIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGQ9Ik01MDIuNDksMzgzLjcyMkg5LjEzNWMtMi40NzQsMC00LjYxNSwwLjg5Ni02LjQyMywyLjcwN0MwLjkwMywzODguMjM4LDAsMzkwLjM3OCwwLDM5Mi44NTR2NTQuODINCgkJCWMwLDIuNDcxLDAuOTAzLDQuNjA5LDIuNzEyLDYuNDJjMS44MDksMS44MTMsMy45NDksMi43MTQsNi40MjMsMi43MTRINTAyLjQ5YzIuNDc4LDAsNC42MTYtMC45MDMsNi40MjctMi43MTQNCgkJCWMxLjgxLTEuODExLDIuNzEtMy45NDksMi43MS02LjQydi01NC44MmMwLTIuNDc3LTAuOTAzLTQuNjE2LTIuNzEtNi40MjZDNTA3LjEwNiwzODQuNjI1LDUwNC45NjcsMzgzLjcyMiw1MDIuNDksMzgzLjcyMnoiLz4NCgkJPHBhdGggZD0iTTEwMC41LDM0Ny4xNjljMi40NzMsMCw0LjYxNS0wLjg5Niw2LjQyMy0yLjcwN2MxLjgwNy0xLjgwNywyLjcxMi0zLjk0OSwyLjcxMi02LjQyN1YxNzMuNTg5DQoJCQljMC0yLjQ3NS0wLjkwNS00LjYxNy0yLjcxMi02LjQyN2MtMS44MDktMS44MDYtMy45NTEtMi43MDktNi40MjMtMi43MDljLTIuNjY3LDAtNC44NTQsMC44NTQtNi41NjcsMi41NjhsLTgyLjIyNiw4Mi4yMjQNCgkJCWMtMS43MDksMS43MTUtMi41NjgsMy45MDEtMi41NjgsNi41NjdjMCwyLjY2NSwwLjg1NSw0Ljg1NCwyLjU2OCw2LjU2NWw4Mi4yMjYsODIuMjI5DQoJCQlDOTUuNjQ2LDM0Ni4zMTcsOTcuODMzLDM0Ny4xNjksMTAwLjUsMzQ3LjE2OXoiLz4NCgkJPHBhdGggZD0iTTUwMi40OSwxNjQuNDUzSDE5MS44NmMtMi40NzQsMC00LjYxNSwwLjktNi40MjMsMi43MDljLTEuODA5LDEuODEtMi43MTIsMy45NTItMi43MTIsNi40Mjd2NTQuODE3DQoJCQljMCwyLjQ3MywwLjkwMyw0LjYxNSwyLjcxMiw2LjQyNGMxLjgwOSwxLjgwMywzLjk0OSwyLjcxMiw2LjQyMywyLjcxMmgzMTAuNjNjMi40NzgsMCw0LjYxNi0wLjkwNSw2LjQyNy0yLjcxMg0KCQkJYzEuODEtMS44MDksMi43MS0zLjk1MSwyLjcxLTYuNDI0di01NC44MTdjMC0yLjQ3NS0wLjkwMy00LjYxNy0yLjcxLTYuNDI3QzUwNy4xMDYsMTY1LjM1Niw1MDQuOTY3LDE2NC40NTMsNTAyLjQ5LDE2NC40NTN6Ii8+DQoJCTxwYXRoIGQ9Ik01MDIuNDksMjc0LjA4MkgxOTEuODZjLTIuNDc0LDAtNC42MTUsMC45MS02LjQyMywyLjcxNHMtMi43MTIsMy45NTMtMi43MTIsNi40MjR2NTQuODE1YzAsMi40NzgsMC45MDMsNC42MiwyLjcxMiw2LjQyNw0KCQkJYzEuODA5LDEuODA4LDMuOTQ5LDIuNzA3LDYuNDIzLDIuNzA3aDMxMC42M2MyLjQ3OCwwLDQuNjE2LTAuODk2LDYuNDI3LTIuNzA3YzEuODEtMS44MDcsMi43MS0zLjk0OSwyLjcxLTYuNDI3VjI4My4yMg0KCQkJYzAtMi40NzEtMC45MDMtNC42MTMtMi43MS02LjQyNEM1MDcuMTA2LDI3NC45OTIsNTA0Ljk2NywyNzQuMDgyLDUwMi40OSwyNzQuMDgyeiIvPg0KCQk8cGF0aCBkPSJNNTA4LjkxNyw1Ny41MjljLTEuODExLTEuODA1LTMuOTQ5LTIuNzEyLTYuNDI3LTIuNzEySDkuMTM1Yy0yLjQ3NCwwLTQuNjE1LDAuOTAzLTYuNDIzLDIuNzEyUzAsNjEuNDc5LDAsNjMuOTUzdjU0LjgxNw0KCQkJYzAsMi40NzUsMC45MDMsNC42MTUsMi43MTIsNi40MjRzMy45NDksMi43MTIsNi40MjMsMi43MTJINTAyLjQ5YzIuNDc4LDAsNC42MTYtMC45LDYuNDI3LTIuNzEyDQoJCQljMS44MS0xLjgwOSwyLjcxLTMuOTQ5LDIuNzEtNi40MjRWNjMuOTUzQzUxMS42MjYsNjEuNDc5LDUxMC43MjMsNTkuMzM4LDUwOC45MTcsNTcuNTI5eiIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K",
+        indentImgUrl: "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iaXNvLTg4NTktMSI/Pg0KPCEtLSBHZW5lcmF0b3I6IEFkb2JlIElsbHVzdHJhdG9yIDE2LjAuMCwgU1ZHIEV4cG9ydCBQbHVnLUluIC4gU1ZHIFZlcnNpb246IDYuMDAgQnVpbGQgMCkgIC0tPg0KPCFET0NUWVBFIHN2ZyBQVUJMSUMgIi0vL1czQy8vRFREIFNWRyAxLjEvL0VOIiAiaHR0cDovL3d3dy53My5vcmcvR3JhcGhpY3MvU1ZHLzEuMS9EVEQvc3ZnMTEuZHRkIj4NCjxzdmcgdmVyc2lvbj0iMS4xIiBpZD0iQ2FwYV8xIiB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHhtbG5zOnhsaW5rPSJodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rIiB4PSIwcHgiIHk9IjBweCINCgkgd2lkdGg9IjUxMS42MjZweCIgaGVpZ2h0PSI1MTEuNjI2cHgiIHZpZXdCb3g9IjAgMCA1MTEuNjI2IDUxMS42MjYiIHN0eWxlPSJlbmFibGUtYmFja2dyb3VuZDpuZXcgMCAwIDUxMS42MjYgNTExLjYyNjsiDQoJIHhtbDpzcGFjZT0icHJlc2VydmUiPg0KPGc+DQoJPGc+DQoJCTxwYXRoIGQ9Ik05LjEzOSwzNDcuMTczYzIuNjY3LDAsNC44NTQtMC44NTUsNi41NjctMi41NjZsODIuMjI0LTgyLjIyOWMxLjcxMS0xLjcxMSwyLjU3LTMuOSwyLjU3LTYuNTY1DQoJCQljMC0yLjY2Ni0wLjg1OS00Ljg1My0yLjU3LTYuNTY3bC04Mi4yMjQtODIuMjI0Yy0xLjcxMy0xLjcxNC0zLjktMi41NjgtNi41NjctMi41NjhjLTIuNDc0LDAtNC42MTUsMC45LTYuNDIzLDIuNzA5DQoJCQljLTEuODA5LDEuODEtMi43MTIsMy45NTItMi43MTIsNi40Mjd2MTY0LjQ0NmMwLDIuNDc4LDAuOTAzLDQuNjIsMi43MTIsNi40MjdDNC41MjQsMzQ2LjI2Niw2LjY2NSwzNDcuMTczLDkuMTM5LDM0Ny4xNzN6Ii8+DQoJCTxwYXRoIGQ9Ik01MDIuNDksMzgzLjcyMkg5LjEzNWMtMi40NzQsMC00LjYxNSwwLjg5Ni02LjQyMywyLjcwN0MwLjkwMywzODguMjM4LDAsMzkwLjM3OCwwLDM5Mi44NTR2NTQuODINCgkJCWMwLDIuNDcxLDAuOTAzLDQuNjA5LDIuNzEyLDYuNDJjMS44MDksMS44MTMsMy45NDksMi43MTQsNi40MjMsMi43MTRINTAyLjQ5YzIuNDc4LDAsNC42MTYtMC45MDMsNi40MjctMi43MTQNCgkJCWMxLjgxLTEuODExLDIuNzEtMy45NDksMi43MS02LjQydi01NC44MmMwLTIuNDc3LTAuOTAzLTQuNjE2LTIuNzEtNi40MjZDNTA3LjEwNiwzODQuNjI1LDUwNC45NjcsMzgzLjcyMiw1MDIuNDksMzgzLjcyMnoiLz4NCgkJPHBhdGggZD0iTTUwMi40OSwyNzQuMDgySDE5MS44NmMtMi40NzQsMC00LjYxNSwwLjkxLTYuNDIzLDIuNzE0cy0yLjcxMiwzLjk1My0yLjcxMiw2LjQyNHY1NC44MTVjMCwyLjQ3OCwwLjkwMyw0LjYyLDIuNzEyLDYuNDI3DQoJCQljMS44MDksMS44MDgsMy45NDksMi43MDcsNi40MjMsMi43MDdoMzEwLjYzYzIuNDc4LDAsNC42MTYtMC44OTYsNi40MjctMi43MDdjMS44MS0xLjgwNywyLjcxLTMuOTQ5LDIuNzEtNi40MjdWMjgzLjIyDQoJCQljMC0yLjQ3MS0wLjkwMy00LjYxMy0yLjcxLTYuNDI0QzUwNy4xMDYsMjc0Ljk5Miw1MDQuOTY3LDI3NC4wODIsNTAyLjQ5LDI3NC4wODJ6Ii8+DQoJCTxwYXRoIGQ9Ik01MDIuNDksMTY0LjQ1M0gxOTEuODZjLTIuNDc0LDAtNC42MTUsMC45LTYuNDIzLDIuNzA5Yy0xLjgwOSwxLjgxLTIuNzEyLDMuOTUyLTIuNzEyLDYuNDI3djU0LjgxNw0KCQkJYzAsMi40NzMsMC45MDMsNC42MTUsMi43MTIsNi40MjRjMS44MDksMS44MDMsMy45NDksMi43MTIsNi40MjMsMi43MTJoMzEwLjYzYzIuNDc4LDAsNC42MTYtMC45MDUsNi40MjctMi43MTINCgkJCWMxLjgxLTEuODA5LDIuNzEtMy45NTEsMi43MS02LjQyNHYtNTQuODE3YzAtMi40NzUtMC45MDMtNC42MTctMi43MS02LjQyN0M1MDcuMTA2LDE2NS4zNTYsNTA0Ljk2NywxNjQuNDUzLDUwMi40OSwxNjQuNDUzeiIvPg0KCQk8cGF0aCBkPSJNNTA4LjkxNyw1Ny41MjljLTEuODExLTEuODA1LTMuOTQ5LTIuNzEyLTYuNDI3LTIuNzEySDkuMTM1Yy0yLjQ3NCwwLTQuNjE1LDAuOTAzLTYuNDIzLDIuNzEyUzAsNjEuNDc5LDAsNjMuOTUzdjU0LjgxNw0KCQkJYzAsMi40NzUsMC45MDMsNC42MTUsMi43MTIsNi40MjRzMy45NDksMi43MTIsNi40MjMsMi43MTJINTAyLjQ5YzIuNDc4LDAsNC42MTYtMC45LDYuNDI3LTIuNzEyDQoJCQljMS44MS0xLjgwOSwyLjcxLTMuOTQ5LDIuNzEtNi40MjRWNjMuOTUzQzUxMS42MjYsNjEuNDc5LDUxMC43MjMsNTkuMzM4LDUwOC45MTcsNTcuNTI5eiIvPg0KCTwvZz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjxnPg0KPC9nPg0KPGc+DQo8L2c+DQo8Zz4NCjwvZz4NCjwvc3ZnPg0K"
     };
 
     function Editor(node) {
@@ -75,17 +74,40 @@
 
         list.toolbarList.forEach(function (el) {
             var div = document.createElement('div');
-            var button = document.createElement('button');
             div.setAttribute('class', el);
             div.style.backgroundImage = "url(" + toolbarImgUrl[el + 'ImgUrl'] + ")";
             div.classList.add('toolbarDiv');
 
             tmp.appendChild(div);
 
-            if (el == 'heading' || el == 'strikeThrough') {
+            if (el == 'heading' || el == 'strikeThrough' || el == 'imageUpload') {
                 var span = document.createElement('span');
                 span.setAttribute('class', 'seperate');
                 div.after(span);
+            }
+
+            if (el == 'heading') {
+
+                var headingSpan = document.createElement('span');
+                headingSpan.textContent = 'Heading1';
+                headingSpan.setAttribute('class', 'headingSpan');
+
+                var headingSelectDiv = document.createElement('div');
+                headingSelectDiv.setAttribute('class', 'headingSelectDiv');
+                headingSelectDiv.style.display = 'none';
+
+                list.headerSelect.forEach(function (el) {
+                    var headingLi = document.createElement('li');
+                    headingLi.setAttribute('class', el);
+                    headingLi.classList.add('headingLi');
+                    headingLi.style.fontSize = el;
+                    headingLi.textContent = el;
+                    headingSelectDiv.appendChild(headingLi);
+                })
+
+                div.appendChild(headingSpan);
+                div.appendChild(headingSelectDiv)
+
             }
             if (el == 'imageUpload') {
                 var form = document.createElement('form');
@@ -108,6 +130,8 @@
             if (el == 'bold' || el == 'italic' || el == 'underline' || el == 'strikeThrough') {
                 div.classList.add('deco');
             }
+
+
         })
 
         toolbar.appendChild(tmp);
@@ -116,27 +140,134 @@
 
     function setDecoButtonColor(button, commandState) {
         if (document.queryCommandState(commandState)) {
-            button.style.backgroundColor = "#eee";
+            button.style.backgroundColor = "#ccc";
         } else {
-            button.style.backgroundColor = "white";
+            button.style.backgroundColor = "transparent";
         }
+    }
+
+
+    Editor.prototype.addHeadingDeco = function(headingName){
+        var caret = this.element.caret;
+
+        var start = caret.startContainer
+        var end = caret.endContainer
+
+        var arr = [];
+        // parentNode구하기
+        function getStartEndContainer(caretParentNode) {
+            while (caretParentNode !== null) {
+                if (caretParentNode.tagName === 'P' || caretParentNode.tagName === 'H1' || caretParentNode.tagName === 'H2' || caretParentNode.tagName === 'H3') {
+                    return caretParentNode;
+                }
+                caretParentNode = caretParentNode.parentNode || caretParentNode.parentElement;
+            }
+        }
+        var startParent = getStartEndContainer(start);
+        var endParent = getStartEndContainer(end);
+
+        function test(start, end) {
+            var testArr = [];
+
+            while (start !== end) {
+                if (start.tagName === 'P' || start.tagName === 'H1' || start.tagName === 'H2' || start.tagName === 'H3') {
+                    testArr.push(start);
+                } else if (start.tagName === 'DIV') {
+                    if (start.childNodes.length > 0) {
+                        testArr.push(test(start.firstElementChild, end).flat());
+                        break;
+                    }
+                }
+
+                if (start.nextElementSibling !== null) {
+                    start = start.nextElementSibling;
+                } else {
+                    while (start.parentElement !== null) {
+                        start = start.parentElement;
+
+                        if (start.nextElementSibling !== null) {
+                            start = start.nextElementSibling;
+                            break;
+                        }
+                    }
+                }
+            }
+            if (start == end) {
+                testArr.push(start);
+            }
+            return testArr.flat();
+        }
+
+        arr.push(test(startParent, endParent).flat());
+
+        if (headingName === 'h1' || headingName === 'h2' || headingName === 'h3' ){
+            arr.flat().forEach(function (el) {
+                var node = document.createElement(headingName);
+                node.innerHTML = el.innerHTML;
+                el.outerHTML = node.outerHTML;
+            })
+        } else {
+            arr.flat().forEach(function (el) {
+                el.style.font = '14px '+headingName;
+            })
+        }
+        
     }
     Editor.prototype.addToolbarEvent = function () {
         var me = this;
+        var sel = global.getSelection();
 
         // heading
+        var heading = me.element.main.querySelector('.heading');
+        heading.addEventListener('click', function (e) {
+            me.element.main.querySelector('.headingSelectDiv').zIndex = 11;
+            $('.headingSelectDiv').toggle();
+            console.log(me.element.caret);
+        })
+
+
+        var headingli = me.element.main.querySelectorAll('.headingLi');
+        headingli.forEach(function (el) {
+            el.addEventListener('click', function () {
+                switch (el.className.split(' ')[0]) {
+                    case 'Heading1': me.addHeadingDeco('h1'); break;
+                    case 'Heading2': me.addHeadingDeco('h2'); break;
+                    case 'Heading3': me.addHeadingDeco('h3'); break;
+                    case 'Paragraph': me.addHeadingDeco('paragraph'); break;
+                }
+            })
+        })
+        // 
+        
         // deco
         var deco = me.element.main.querySelectorAll('.deco');
+
         deco.forEach(function (el) {
+
             el.addEventListener('click', function () {
                 var decoName = el.className.split(' ')[0];
-                console.log(el.className.split(' ')[0])
-                document.execCommand(decoName);
+                sel.removeAllRanges();
+                sel.addRange(me.element.caret);
+                document.execCommand(decoName)
                 setDecoButtonColor(el, decoName);
             })
         })
+
+
+        document.addEventListener('selectionchange', function (e) {
+
+            if (e.target.activeElement.parentElement.className === 'content') {
+                deco.forEach(function (el) {
+                    setDecoButtonColor(el, el.className.split(' ')[0]);
+                })
+            }
+        })
         // newpage
         var newPage = me.element.main.querySelector('.newPage');
+        newPage.addEventListener('click', function () {
+            me.toEdit();
+            me.element.main.querySelector('.edit').innerHTML = "<p><br></p>"
+        });
         // imageupload
         var imageUpload = me.element.main.querySelector('.imageUpload');
         var fileInput = me.element.main.querySelector('.file');
@@ -175,6 +306,22 @@
 
             }
         })
+        // indent, outdent
+        var indent = me.element.main.querySelector('.indent');
+        var outdent = me.element.main.querySelector('.outdent');
+
+        indent.addEventListener('click', function () {
+            sel.removeAllRanges();
+            sel.addRange(me.element.caret);
+            document.execCommand('indent');
+        })
+        outdent.addEventListener('click', function () {
+            sel.removeAllRanges();
+            sel.addRange(me.element.caret);
+            document.execCommand('outdent');
+        })
+
+
     }
     Editor.prototype.ajaxformUpload = function (me) {
 
@@ -225,11 +372,11 @@
         sel.addRange(this.element.caret);
     }
 
-    Editor.prototype.createMainContent = function() {
+    Editor.prototype.createMainContent = function () {
         var content = this.element.main.querySelector('.content');
         var tmp = document.createDocumentFragment();
 
-        list.contentList.forEach(function(el){
+        list.contentList.forEach(function (el) {
             var div = document.createElement('div');
             div.setAttribute('class', el);
             div.classList.add('contentDiv');
@@ -242,7 +389,7 @@
             tmp.appendChild(div);
         })
         content.appendChild(tmp);
-        
+
     }
     Editor.prototype.addContentEvent = function () {
         var content = this.element.main.querySelector('.content');
@@ -299,6 +446,7 @@
 
         if (this.element.main.querySelector('.editbtn').disabled) {
             this.element.main.querySelector('.html').innerText = this.element.main.querySelector('.edit').innerHTML;
+            console.log(this.element.main.querySelector('.edit'))
         } else {
             this.element.main.querySelector('.html').innerText = this.element.main.querySelector('.preview').innerHTML;
         }

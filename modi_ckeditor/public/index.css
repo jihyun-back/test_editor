@@ -45,18 +45,19 @@ body {
     background-color: #fafafa;
 }
 .seperate {
-    display: inline-block;
+    display: block;
     width: 0;
-    height: 80%;
+    height:  95%;
     border : 0.5px solid #ccc;
     background-color: #ccc;
     cursor : none;
     margin-left: 0.3%;
     margin-right: 0.3%;
+    float:left;
 }
 
 .toolbarDiv {
-    display: inline-block;
+    display: block;
     width: 40px;
     height: 40px;
     border : 1px solid transparent;
@@ -66,25 +67,59 @@ body {
     background-color: transparent;
     margin-left: 0.3%;
     margin-right: 0.3%;
+    float:left;
+
     cursor: pointer;
+}
+
+.toolbarDiv::after {
+    clear: both;
 }
 .toolbarDiv:hover {
     border: 1px solid #ddd;
+    background-color: #efefef;
 }
 
 
 .heading {
+    position: relative;
     width: 150px;
-    height: 80%;
-    display: inline-block;
+    height: 95%;
+    display: block;
     background-repeat: no-repeat;
     background-size: 10%;
     background-position-x : 90%;
     background-position-y: center;
-
+    z-index: 100;
 }
 .heading:hover {
     background-color: #ccc;
+}
+
+.headingSpan {
+    width: 71%;
+    height: 83%;
+    display: inline-block;
+    text-align: left;
+    padding-top : 4%;
+    padding-left: 4%;
+    font-size: 1em;
+}
+.headingSelectDiv {
+    width: 110%;
+    border : 1px solid black;
+    background-color: white;
+    z-index: 1;
+}
+
+.headingSelectDiv li { 
+    list-style: none;
+    text-align: left;
+    padding : 5%;
+    
+}
+.headingSelectDiv li:hover {
+    background-color: #ddd;
 }
 
 .content {
@@ -93,13 +128,14 @@ body {
     padding : 1%;
     border-right : 1px solid #ccc;
     border-left : 1px solid #ccc;
+    overflow-y: auto;
     
 }
 .content > div {
     width: 100%;
-    height: 100%;
+    height: 80%;
     outline: none;
-    overflow-y: auto;
+    
 }
 .footer {
     width: 100%;
