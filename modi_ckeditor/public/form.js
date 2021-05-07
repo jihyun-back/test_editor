@@ -327,62 +327,13 @@
 
         var allRange = document.createRange();
 
-        function findLastText(node){
-            while(node !== null){
-                if(node.nodeType === 3){
-                    return node;
-                } else if(node.lastChild == null){
-                    node = node.previousElementSibling;
-                } else {
-                    node = node.lastChild;
-                }
-            }   
-            return node;
-        }
-        function findFirstText(node){
-            while(node !== null){
-                if(node.nodeType === 3){
-                    return node;
-                } else {
-                    node = node.firstChild;
-                }
-            }   
-            return node;
-        }
-
-        function isSpan(element) {
-            element.childNodes.forEach(el =>{
-                if(el.tagName === 'SPAN'){
-                    isSpan(el);
-                    el.style.fontFamily = '';
-                } else {
-                    return;
-                }
-            })
-        }
-
         if (startParent !== endParent) {
-
             for (var i = 0; i < arr.length; i++) {
                 var span = document.createElement('span');
                 span.style.fontFamily = fontName;
                 if (i == 0) {
                     range.selectNodeContents(arr[i]);
                     range.setStart(startContainer, startOffset);
-                    // range.setEnd(arr[i].childNodes[arr[i].childNodes.length-1], arr[i].childNodes[arr[i].childNodes.length - 1].length);
-                    
-                    // if(arr[i].childNodes[arr[i].childNodes.length-1].nodeType !== 3){
-                    //     range.setEnd
-                    //     (findLastText(arr[i].childNodes[arr[i].childNodes.length-1])
-                    //     , findLastText(arr[i].childNodes[arr[i].childNodes.length - 1]).length);
-                    // } else {
-                    //     range.setEnd
-                    //     (arr[i].childNodes[arr[i].childNodes.length-1]
-                    //     , arr[i].childNodes[arr[i].childNodes.length - 1].length);
-                    // }
-                   
-                    // range.surroundContents(span);
-
                     span.appendChild(range.extractContents())
                     range.insertNode(span,range);
 
@@ -390,105 +341,42 @@
                     for(var j=0; j<spanArr.length; j++){
                         spanArr[j].style.fontFamily = '';
                     }
-                    
-                    // for (var i=0; i< spanArr.length; i++){
-                    //     spanArr[i].style.fontFamily = '';
-                    // }
-                    // getStartEndContainer(arr[i]).childNodes.forEach( el=>{
-                    //     if(el.tagName === 'SPAN'){
-                    //         isSpan(el);
-                    //     }
-                    // })
-                    // span.textContent = range.cloneContents().textContent;
-                    // range.deleteContents();
-                    // range.insertNode(span,range);
-
                     allRange.setStart(range.startContainer, range.startOffset);
-
                 } else if (i == arr.length - 1) {
                     range.selectNodeContents(arr[i]);
-                    // if(arr[i].childNodes[0].nodeType !== 3){
-                    //     range.setStart(findFirstText(arr[i].childNodes[0]), 0);
-                    // } else {
-                    //     range.setStart(arr[i].childNodes[0], 0);
-                    // }
                     range.setEnd(endContainer, endOffset);
-                    // range.surroundContents(span);
-
                     span.appendChild(range.extractContents())
                     range.insertNode(span,range);
                     var spanArr = span.getElementsByTagName('SPAN');
                     for (var j=0; j< spanArr.length; j++){
                         spanArr[j].style.fontFamily = '';
                     }
-                    // getStartEndContainer(arr[i]).childNodes.forEach( el=>{
-                    //     if(el.tagName === 'SPAN'){
-                    //         isSpan(el);
-                    //     }
-                    // })
                     console.log(span.getElementsByTagName('SPAN'));
-
-                    // span.textContent = range.cloneContents().textContent;
-                    // range.deleteContents();
-                    // range.insertNode(span,range);
-
                     allRange.setEnd(range.endContainer, range.endOffset);
                 } else {
                     range.selectNodeContents(arr[i]);
-                    // range.setStart(arr[i].childNodes[0], arr[i].childNodes[0], 0);
-                    // range.setEnd(arr[i].childNodes[arr[i].childNodes.length - 1], arr[i].childNodes[arr[i].childNodes.length - 1].length)
-                    // range.surroundContents(span);
-
-                    // getStartEndContainer(arr[i]).childNodes.forEach( el=>{
-                    //     if(el.tagName === 'SPAN'){
-                    //         isSpan(el);
-                    //     }
-                    // })
                     span.appendChild(range.extractContents())
                     range.insertNode(span,range);
                     var spanArr = span.getElementsByTagName('SPAN');
-                
                     for (var j=0; j< spanArr.length; j++){
                         spanArr[j].style.fontFamily = '';
                     }
-                    
-                  
                     allRange.setEnd(range.endContainer, range.endOffset);
-
-                    // span.textContent = range.cloneContents().textContent;
-                    // range.deleteContents();
-                    // range.insertNode(span,range);
                 }
-
             }
         } else {
-
-          
             var span = document.createElement('span');
             span.style.fontFamily = fontName;
-            // span.textContent = caret.cloneContents().textContent;
-            // caret.deleteContents();
-            
             span.appendChild(caret.extractContents())
             caret.insertNode(span,caret);
             var spanArr = span.getElementsByTagName('SPAN');
             for (var j=0; j< spanArr.length; j++){
                 spanArr[j].style.fontFamily = '';
             }
-            // startParent.childNodes.forEach( el=>{
-            //     if(el.tagName === 'SPAN'){
-            //         isSpan(el);
-            //     }
-            // })
-            
-            // caret.surroundContents(span);
             allRange.selectNode(span)
         }
-
         document.getSelection().removeAllRanges();
         document.getSelection().addRange(allRange);
-        // this.element.caret = allRange;
-
     }
 
     Editor.prototype.addToolbarEvent = function () {
