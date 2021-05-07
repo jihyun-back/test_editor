@@ -31,3 +31,6 @@ IE9 호환테스트 진행 중 이슈
   - ie의 경우 inpute의 files데이터가 undefined이므로 브라우저별 분기처리필요
 </code>
 </pre>
+
+## 2021/05/03-07  
+- CKEditor를 modify하여 sampleEditor 구현
